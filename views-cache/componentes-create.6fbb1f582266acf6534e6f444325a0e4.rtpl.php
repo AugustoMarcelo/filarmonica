@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group col-12 col-md-2 align-self-end">
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" name="ativo" id="ativo">
+                        <input type="checkbox" class="custom-control-input" name="ativo" id="ativo" value="1">
                         <label for="ativo" class="custom-control-label">Ativo</label>
                     </div>
                 </div>
