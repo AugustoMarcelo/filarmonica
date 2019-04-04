@@ -1,5 +1,5 @@
 # Ignorando os arquivos de cache
-filarmonica/views-cache/
-filarmonica/views-cache/**
+views-cache/
+views-cache/**
 # Ignorando o arquivo de ambiente de trabalho do VS Code
 *.code-workspace
