@@ -1,0 +1,4 @@
+# Ignorando os arquivos da pasta sql
+filarmonica/views-cache/
+# Ignorando o arquivo de ambiente de trabalho do VS Code
+*.code-workspace
