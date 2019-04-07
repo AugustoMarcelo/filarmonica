@@ -109,6 +109,7 @@
         $componente = new Componente();
         $_POST['cadastrado_por'] = $_SESSION[User::SESSION] ?? 1;
         $_POST['data_cadastro'] = DateUtils::now("Y-m-d H:i:s");
+        $_POST['ativo'] = isset($_POST['ativo']) ? 1 : 0;
         $componente->setData($_POST);
         $componente->save();
         header("Location: /componentes");
@@ -136,9 +137,10 @@
     $app->post('/componentes/editar/:id', function($id) {
         User::verifyLogin();
         $componente = new Componente();
-        $componente->get((int) $id);
+        $_POST['ativo'] = isset($_POST['ativo']) ? 1 : 0;
         $_POST['atualizado_por'] = $_SESSION[User::SESSION] ?? 1;
         $_POST['data_atualizacao'] = DateUtils::now("Y-m-d H:i:s");
+        $componente->get((int) $id);
         $componente->setData($_POST);
         $componente->update();
         header("Location: /componentes");

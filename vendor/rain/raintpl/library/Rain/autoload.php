@@ -23,57 +23,35 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Rain\Tpl;
+if(!defined("BASE_DIR"))
+    define("BASE_DIR", dirname( dirname(__DIR__) ) );
 
-/**
- * Exception thrown when syntax error occurs.
- */
-class SyntaxException extends Exception {
+// register the autoloader
+spl_autoload_register( "RainTplAutoloader" );
 
-    /**
-     * Line in template file where error has occured.
-     *
-     * @var int | null
-     */
-    protected $templateLine = null;
 
-    /**
-     * Tag which caused an error.
-     *
-     * @var string | null
-     */
-    protected $tag = null;
+// autoloader
+function RainTplAutoloader( $class ){
 
-    /**
-     * Handles the line in template file
-     * where error has occured
-     *
-     * @param int | null $line
-     *
-     * @return \Rain\Tpl\SyntaxException | int | null
-     */
-    public function templateLine($line){
-        if(is_null($line))
-            return $this->templateLine;
+    // it only autoload class into the Rain scope
+    if (strpos($class,'Rain\\Tpl') !== false){
 
-        $this->templateLine = (int) $line;
-        return $this;
+        // transform the namespace in path
+        $path = str_replace("\\", DIRECTORY_SEPARATOR, $class );
+
+        // filepath
+        $abs_path = BASE_DIR . "/library/" . $path . ".php";
+
+        if (!file_exists($abs_path)) {
+            echo "<br>";
+            echo $path;
+            echo "<br>";
+            echo $abs_path;
+            echo "<br><br>";
+        }
+
+        // require the file
+        require_once $abs_path;
     }
 
-    /**
-     * Handles the tag which caused an error.
-     *
-     * @param string | null $tag
-     *
-     * @return \Rain\Tpl_SyntaxException | string | null
-     */
-    public function tag($tag=null){
-        if(is_null($tag))
-            return $this->tag;
-
-        $this->tag = (string) $tag;
-        return $this;
-    }
 }
-
-// -- end

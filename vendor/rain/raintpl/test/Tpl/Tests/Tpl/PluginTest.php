@@ -23,57 +23,41 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Rain\Tpl;
+require_once __DIR__ . '/../TplTest.php';
 
-/**
- * Exception thrown when syntax error occurs.
- */
-class SyntaxException extends Exception {
+class PluginTest extends PHPUnit_Framework_TestCase
+{
+	public function testDeclareHooks()
+	{
+		$plugin = new PluginTestPlugin();
+		$plugin->set_hooks(array('before_parse'));
+		$this->assertEquals(array('before_parse'), $plugin->declareHooks());
+	}
 
-    /**
-     * Line in template file where error has occured.
-     *
-     * @var int | null
-     */
-    protected $templateLine = null;
+	public function testSetOption()
+	{
+		$plugin = $this->getMock('Rain\Tpl\Plugin', array('setParam'));
+		$plugin->expects($this->once())
+			->method('setParam')
+			->with($this->equalTo('value'));
+		$plugin->setOption('param', 'value');
+		$this->setExpectedException('InvalidArgumentException');
+		$plugin->setOption('unknown_param', 'value');
+	}
 
-    /**
-     * Tag which caused an error.
-     *
-     * @var string | null
-     */
-    protected $tag = null;
-
-    /**
-     * Handles the line in template file
-     * where error has occured
-     *
-     * @param int | null $line
-     *
-     * @return \Rain\Tpl\SyntaxException | int | null
-     */
-    public function templateLine($line){
-        if(is_null($line))
-            return $this->templateLine;
-
-        $this->templateLine = (int) $line;
-        return $this;
-    }
-
-    /**
-     * Handles the tag which caused an error.
-     *
-     * @param string | null $tag
-     *
-     * @return \Rain\Tpl_SyntaxException | string | null
-     */
-    public function tag($tag=null){
-        if(is_null($tag))
-            return $this->tag;
-
-        $this->tag = (string) $tag;
-        return $this;
-    }
+	public function testSetOptions()
+	{
+		$plugin = $this->getMock('Rain\Tpl\Plugin', array('setParam'));
+		$plugin->expects($this->once())
+			->method('setParam')
+			->with($this->equalTo('value'));
+		$plugin->setOptions(array('param' => 'value'));
+	}
 }
 
-// -- end
+class PluginTestPlugin extends Rain\Tpl\Plugin
+{
+	public $param = null;
+	public function set_hooks($hooks) {$this->hooks = $hooks;}
+	public function set_param($param) {$this->param = $param;}
+}
