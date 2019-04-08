@@ -20,10 +20,21 @@
                         required="required">
                     <div class="invalid-feedback">Este campo deve ser preenchido!</div>
                 </div>
-                <div class="form-group col-12 col-md-6 required">
+                <div class="form-group col-12 col-md-4 required">
                     <label for="data">Data:</label>
-                    <input type="date" name="data" id="data" class="form-control" required="required">
+                    <input type="date" name="data_tocata" id="data_tocata" class="form-control" required="required">
                     <div class="invalid-feedback">Este campo deve ser preenchido!</div>
+                </div>
+                <div class="form-group col-12 col-md-2 required">
+                    <label for="horario">Horário:</label>
+                    <input type="time" name="horario" id="horario" class="form-control" required>
+                    <div class="invalid-feedback">Este campo deve ser preenchido!</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <label for="observacoes">Observações:</label>
+                    <textarea class="form-control" placeholder="Digite alguma informação sobre a tocata..."></textarea>
                 </div>
             </div>
             <h6 class="custom-border">Componentes</h6>
@@ -31,9 +42,9 @@
                 {loop="$componentes"}
                 <div class="form-group col-12 col-lg-6">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="componente{$value.id}"
-                            id="componente{$value.id}">
-                        <label for="componente{$value.id}" class="custom-control-label"
+                        <input type="checkbox" class="custom-control-input" name="componente_{$value.id}"
+                            id="componente_{$value.id}">
+                        <label for="componente_{$value.id}" class="custom-control-label"
                             title="Marcar componente como presente">{$value.nome}</label>
                     </div>
                 </div>

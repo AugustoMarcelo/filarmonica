@@ -37,6 +37,7 @@
             <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Nome</th>
                         <th>Telefone</th>
                         <th></th>
@@ -44,6 +45,7 @@
                 </thead>
                 <tfoot>
                     <tr>
+                        <th>#</th>
                         <th>Nome</th>
                         <th>Telefone</th>
                         <th></th>
@@ -53,10 +55,11 @@
                     {loop="$componentes"}
                     <tr class="clickable" style="cursor: pointer;" data-href="/componentes/editar/{$value.id}"
                         title="Clique para alterar o registro">
+                        <td>{$key+1}</td>
                         <td>{$value.nome}</td>
                         <td>{$value.telefone}</td>
                         <td>
-                            <a href="/componentes/delete/{$value.id}" class="btn btn-danger btn-sm"><i
+                            <a href="#" data-link="/componentes/delete/{$value.id}" data-toggle="modal" data-target="#confirmDeleteModal" class="btn btn-danger btn-sm"><i
                                     class="fas fa-trash-alt"></i> Remover</a>
                         </td>
                     </tr>
