@@ -60,7 +60,11 @@
   }, false);
 
   $(document).on('click', 'tr.clickable', function (e) {
-    window.location = $(this).data('href');
+    if (e.target.getAttribute('data-link') == undefined) {
+      window.location = $(this).data('href');
+    } else {
+      document.getElementById('confirmButtonDelete').href = e.target.getAttribute('data-link');
+    }
   });
 
 })(jQuery); // End of use strict
