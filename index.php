@@ -1,6 +1,7 @@
 <?php
     session_start();
     require_once("vendor/autoload.php");
+    require_once("functions.php");
 
     use Slim\Slim;
     use Framework\database\Database;
@@ -20,6 +21,7 @@
             "data" => array(
                 "componentesClassActive" => "",
                 "userClassActive" => "",
+                "frequenciasClassActive" => "",
                 "tocatasClassActive" => ""
             )
         ]);
@@ -62,6 +64,7 @@
             "data" => array(
                 "componentesClassActive" => "",
                 "userClassActive" => "active",
+                "frequenciasClassActive" => "",
                 "tocatasClassActive" => ""
             )
         ));
@@ -82,6 +85,7 @@
             "data" => array(
                 "componentesClassActive" => "active",
                 "userClassActive" => "",
+                "frequenciasClassActive" => "",
                 "tocatasClassActive" => ""
             )
         ));
@@ -97,6 +101,7 @@
             "data" => array(
                 "componentesClassActive" => "active",
                 "userClassActive" => "",
+                "frequenciasClassActive" => "",
                 "tocatasClassActive" => ""
             )
         ));
@@ -125,6 +130,7 @@
             "data" => array(
                 "componentesClassActive" => "active",
                 "userClassActive" => "",
+                "frequenciasClassActive" => "",
                 "tocatasClassActive" => ""
             )
         ));
@@ -165,6 +171,7 @@
             "data" => array(
                 "componentesClassActive" => "",
                 "userClassActive" => "",
+                "frequenciasClassActive" => "",
                 "tocatasClassActive" => "active"
             )
         ));
@@ -180,12 +187,25 @@
             "data" => array(
                 "componentesClassActive" => "",
                 "userClassActive" => "",
+                "frequenciasClassActive" => "",
                 "tocatasClassActive" => "active"
             )
         ));
         $page->setTemplate("tocatas-create", array(
             "componentes" => $componentes
         ));
+    });
+
+    // ROTA PARA CADASTRAR UMA TOCATA
+    $app->post('/tocatas/cadastrar', function() {
+        User::verifyLogin();
+        foreach ($_POST as $key => $value) {
+            $id = explode('_', $key);
+            if ($id[0] == 'componente') {
+                var_dump($id[1]);
+            }
+        }
+        exit;
     });
 
     $app->run();
