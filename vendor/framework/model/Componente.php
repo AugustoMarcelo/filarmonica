@@ -13,7 +13,7 @@
         public static function listALl() {
             $db = new Database();
             // return $db->select("SELECT * FROM tb_componentes WHERE ativo = 1 ORDER BY nome ASC");
-            return $db->select("SELECT * FROM tb_componentes ORDER BY nome ASC");
+            return $db->select("SELECT * FROM tb_componentes WHERE ativo = 1 ORDER BY nome ASC");
         }
 
         public function save() {
