@@ -115,6 +115,7 @@
         $componente = new Componente();
         $_POST['cadastrado_por'] = $_SESSION[User::SESSION] ? $_SESSION[User::SESSION]['id'] : 1;
         $_POST['data_cadastro'] = DateUtils::now("Y-m-d H:i:s");
+        $_POST['data_admissao'] = !empty($_POST['data_admissao']) ? $_POST['data_admissao'] : null;
         $_POST['ativo'] = isset($_POST['ativo']) ? 1 : 0;
         $componente->setData($_POST);
         $componente->save();
@@ -145,6 +146,7 @@
         User::verifyLogin();
         $componente = new Componente();
         $_POST['ativo'] = isset($_POST['ativo']) ? 1 : 0;
+        $_POST['data_admissao'] = !empty($_POST['data_admissao']) ? $_POST['data_admissao'] : null;
         $_POST['atualizado_por'] = $_SESSION[User::SESSION] ? $_SESSION[User::SESSION]['id'] : 1;
         $_POST['data_atualizacao'] = DateUtils::now("Y-m-d H:i:s");
         $componente->get((int) $id);
