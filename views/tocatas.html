@@ -56,9 +56,9 @@
                         <td>{function="transform('Y-m-d', 'd/m/Y', $value.data_tocata)"}</td>
                         <td>{$value.horario}</td>
                         <td>
-                            <a href="#" data-link="/tocatas/delete/{$value.id}" data-toggle="modal" data-target="#confirmDeleteModal" class="btn btn-danger btn-sm"><i
+                            <a href="#" title="Remover registro" data-link="/tocatas/delete/{$value.id}" data-toggle="modal" data-target="#confirmDeleteModal" class="btn btn-danger btn-sm"><i
                                 class="fas fa-trash-alt"></i> Remover</a>
-                            <a href="/tocatas/{$value.id}/chamada" class="btn btn-info btn-sm"><i
+                            <a href="/tocatas/{$value.id}/chamada" title="Abrir lista de chamada" class="btn btn-info btn-sm"><i
                                 class="fas fa-tasks"></i> Fazer Chamada</a>
                         </td>
                     </tr>
