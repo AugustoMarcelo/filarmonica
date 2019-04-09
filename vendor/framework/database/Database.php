@@ -13,7 +13,8 @@
             $this->conn = new \PDO(
                 "mysql:dbname=".Database::DBNAME.";host=".Database::HOSTNAME, 
                 Database::USERNAME,
-                Database::PASSWORD
+                Database::PASSWORD,
+                array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8")
             );
         }
 
