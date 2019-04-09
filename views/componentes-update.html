@@ -33,12 +33,12 @@
                     <input type="email" class="form-control" name="email" id="email" placeholder="E-mail"
                         value='{if="isset($componente.email)"}$componente.email{/if}' required="required">
                 </div> -->
-                <!-- <div class="form-group col-12 col-md-5">
+                <div class="form-group col-12 col-md-5">
                     <label for="data_admissao">Data de Admissão:</label>
                     <input type="date" class="form-control" name="data_admissao" id="data_admissao"
-                        value='{if="isset($componente.data_admissao)"}$componente.data_admissao{/if}'
+                        value="{$componente.data_admissao}"
                         placeholder="Data de admissão">
-                </div> -->
+                </div>
                 <div class="form-group col-12 col-md-2 align-self-end">
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" name="ativo" value="1" id="ativo"
