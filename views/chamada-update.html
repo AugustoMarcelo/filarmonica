@@ -18,29 +18,29 @@
             <form class="needs-validation" action="/tocatas/{$tocata.id}/chamada" method="post" novalidate>
                 <div class="row text-muted">
                     <div class="col-12 col-md-4">
-                        <p>Local: {$tocata.local}</p>
+                        <p><span class="badge badge-info">Local:</span> {$tocata.local}</p>
                     </div>
                     <div class="col-12 col-md-4">
-                        <p>Data: {function="transform('Y-m-d', 'd/m/Y', $tocata.data_tocata)"}</p>
+                        <p><span class="badge badge-info">Data:</span> {function="transform('Y-m-d', 'd/m/Y', $tocata.data_tocata)"}</p>
                     </div>
                     <div class="col-12 col-md-4">
-                        <p>Horário: {$tocata.horario}</p>
+                        <p><span class="badge badge-info">Horário:</span> {$tocata.horario}</p>
                     </div>
                 </div>
-                <h6 class="custom-border">Componentes</h6>
+                <h6 class="custom-border">Componentes <span title="Quantidade de componentes ativos" class="badge badge-info">{function="count($presencas)"}</span></h6>
                 <div class="row">
                     {loop="$presencas"}
                     <div class="form-group col-12 col-lg-6">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" name="componente_{$value.componente_id}"
-                                id="componente_{$value.componente_id}" {if="$value.presenca == 1"}checked{/if}>
-                            <label for="componente_{$value.componente_id}" class="custom-control-label"
+                            <input type="checkbox" class="custom-control-input" name="componente_{$value.id}"
+                                id="componente_{$value.id}" {if="$value.presenca == 1"}checked{/if}>
+                            <label for="componente_{$value.id}" class="custom-control-label"
                                 title="Marcar componente como presente">{$value.nome}</label>
                         </div>
                     </div>
                     {/loop}
                 </div>
-    
+                <hr>
                 <button type="submit" class="btn btn-success float-right" title="Salvar lista de chamada">
                     <i class="fas fa-fw fa-check"></i> Salvar</button>
             </form>
