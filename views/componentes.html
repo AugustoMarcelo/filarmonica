@@ -18,9 +18,12 @@
                 <a href="/componentes/cadastrar" class="btn btn-primary" role="button"
                     title="Clique para adicionar um componente">
                     <i class="fas fa-plus"></i> Adicionar</a>
-                <a href="create.html" class="btn btn-outline-danger" role="button"
+                <!-- <a href="create.html" class="btn btn-outline-danger" role="button"
                     title="Clique para gerar a folha das faltas">
-                    <i class="far fa-file-pdf"></i> Gerar folha</a>
+                    <i class="far fa-file-pdf"></i> Gerar folha</a> -->
+                <a href="#" class="btn btn-outline-info" role="button"
+                    title="Clique para gerar uma folha com as medidas dos componentes">
+                    <i class="fas fa-tshirt"></i> Fardamento</a>
             </div>
             <div class="col-12 col-md-6">
                 <!-- <div class="col offset-md-2 col-md-6 offset-lg-4 col-lg-4"> -->
@@ -34,13 +37,13 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Nome</th>
                         <th>Telefone</th>
-                        <th></th>
+                        <th class="no-sort"></th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -56,7 +59,7 @@
                     <tr class="clickable" style="cursor: pointer;" data-href="/componentes/editar/{$value.id}"
                         title="Clique para alterar o registro">
                         <td>{$key+1}</td>
-                        <td>{$value.nome}</td>
+                        <td><i class='fas fa-power-off {if="$value.ativo == 1"}text-success{else}text-danger{/if}' title='{if="$value.ativo == 1"}Usuário ativo{else}Usuário inativo{/if}'></i> {$value.nome}</td>
                         <td>{$value.telefone}</td>
                         <td>
                             <a href="#" data-link="/componentes/delete/{$value.id}" data-toggle="modal" data-target="#confirmDeleteModal" class="btn btn-danger btn-sm"><i
