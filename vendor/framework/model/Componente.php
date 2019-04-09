@@ -18,9 +18,10 @@
 
         public function save() {
             $db = new Database();
-            $results = $db->select("CALL sp_save_componentes (:param_nome, :param_telefone, :param_camiseta, :param_mangas_curtas, :param_mangas_compridas, :param_sapato, :param_ativo, :param_cadastrado_por, :param_data_cadastro)", array(
+            $results = $db->select("CALL sp_save_componentes (:param_nome, :param_telefone, :param_data_admissao, :param_camiseta, :param_mangas_curtas, :param_mangas_compridas, :param_sapato, :param_ativo, :param_cadastrado_por, :param_data_cadastro)", array(
                 ":param_nome" => $this->getNome(),
                 ":param_telefone" => $this->getTelefone(),
+                ":param_data_admissao" => $this->getData_Admissao(),
                 ":param_camiseta" => $this->getTam_Camiseta(),
                 ":param_mangas_curtas" => (int)$this->getTam_Mangas_Curtas(),
                 ":param_mangas_compridas" => (int)$this->getTam_Mangas_Compridas(),
@@ -44,10 +45,11 @@
 
         public function update() {
             $db = new Database();
-            $results = $db->select("CALL sp_update_componentes (:param_id, :param_nome, :param_telefone, :param_camiseta, :param_mangas_curtas, :param_mangas_compridas, :param_sapato, :param_ativo, :param_atualizado_por, :param_data_atualizacao)", array(
+            $results = $db->select("CALL sp_update_componentes (:param_id, :param_nome, :param_telefone, :param_data_admissao, :param_camiseta, :param_mangas_curtas, :param_mangas_compridas, :param_sapato, :param_ativo, :param_atualizado_por, :param_data_atualizacao)", array(
                 ":param_id" => $this->getId(),
                 ":param_nome" => $this->getNome(),
                 ":param_telefone" => $this->getTelefone(),
+                ":param_data_admissao" => $this->getData_Admissao(),
                 ":param_camiseta" => $this->getTam_Camiseta(),
                 ":param_mangas_curtas" => (int)$this->getTam_Mangas_Curtas(),
                 ":param_mangas_compridas" => (int)$this->getTam_Mangas_Compridas(),
