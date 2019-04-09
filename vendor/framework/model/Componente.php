@@ -10,7 +10,7 @@
          * Retorna todos os componentes ativos cadastrados no banco
          * @return array
          */
-        public static function listALl() {
+        public static function listAll() {
             $db = new Database();
             // return $db->select("SELECT * FROM tb_componentes WHERE ativo = 1 ORDER BY nome ASC");
             return $db->select("SELECT * FROM tb_componentes WHERE ativo = 1 ORDER BY nome ASC");
@@ -44,7 +44,7 @@
 
         public function update() {
             $db = new Database();
-            $results = $db->select("CALL sp_update_componentes (:param_id, :param_nome, :param_telefone, :param_camiseta, :param_mangas_curtas, :param_mangas_compridas, :param_sapato, :param_ativo, :param_cadastrado_por, :param_data_cadastro)", array(
+            $results = $db->select("CALL sp_update_componentes (:param_id, :param_nome, :param_telefone, :param_camiseta, :param_mangas_curtas, :param_mangas_compridas, :param_sapato, :param_ativo, :param_atualizado_por, :param_data_atualizacao)", array(
                 ":param_id" => $this->getId(),
                 ":param_nome" => $this->getNome(),
                 ":param_telefone" => $this->getTelefone(),
@@ -53,8 +53,8 @@
                 ":param_mangas_compridas" => (int)$this->getTam_Mangas_Compridas(),
                 ":param_sapato" => (int)$this->getTam_Sapato(),
                 ":param_ativo" => (int) $this->getAtivo(),
-                ":param_cadastrado_por" => (int)$this->getCadastrado_Por(),
-                ":param_data_cadastro" => $this->getData_Cadastro()
+                ":param_atualizado_por" => (int)$this->getAtualizado_Por(),
+                ":param_data_atualizacao" => $this->getData_Atualizacao()
             ));
             $this->setData($results[0]);
         }
