@@ -8,12 +8,19 @@
 
         /**
          * Retorna todos os componentes ativos cadastrados no banco
+         * @param array [conditions] Restrições a serem verificadas na execução do SELECT
          * @return array
          */
-        public static function listAll() {
+        public static function listAll(array $conditions = null) {
             $db = new Database();
-            // return $db->select("SELECT * FROM tb_componentes WHERE ativo = 1 ORDER BY nome ASC");
-            return $db->select("SELECT * FROM tb_componentes WHERE ativo = 1 ORDER BY nome ASC");
+            $where = '';
+            if (isset($conditions) && !is_null($conditions) && !empty($conditions)) {
+                foreach ($conditions as $condition) {
+                    $where .= "$condition ";
+                }
+                $where = rtrim($where, ' ');
+            }
+            return $db->select("SELECT * FROM tb_componentes $where");
         }
 
         public function save() {
