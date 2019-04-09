@@ -1,6 +1,7 @@
 CREATE PROCEDURE `sp_save_componentes` (
     param_nome VARCHAR(255),
     param_telefone VARCHAR(255),
+    param_data_admissao DATE,
     param_tam_camiseta VARCHAR(10),
     param_tam_mangas_curtas TINYINT(2),
     param_tam_mangas_compridas TINYINT(2),
@@ -15,6 +16,7 @@ BEGIN
     INSERT INTO tb_componentes (
         nome,
         telefone,
+        data_admissao,
         tam_camiseta,
         tam_mangas_curtas,
         tam_mangas_compridas,
@@ -25,6 +27,7 @@ BEGIN
     ) VALUES (
         param_nome,
         param_telefone,
+        param_data_admissao,
         param_tam_camiseta,
         param_tam_mangas_curtas,
         param_tam_mangas_compridas,
