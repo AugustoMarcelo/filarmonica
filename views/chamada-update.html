@@ -8,11 +8,11 @@
         <li class="breadcrumb-item">
             <a href="/tocatas/editar/{$tocata.id}">{$tocata.local}</a>
         </li>
-        <li class="breadcrumb-item active">Lista de Chamada</li>
+        <li class="breadcrumb-item active">Editar Lista de Chamada</li>
     </ol>
     <div class="card">
         <div class="card-header">
-            Lista de Chamada
+            Editar Lista de Chamada
         </div>
         <div class="card-body">
             <form class="needs-validation" action="/tocatas/{$tocata.id}/chamada" method="post" novalidate>
@@ -33,7 +33,7 @@
                     <div class="form-group col-12 col-lg-6">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" name="componente_{$value.componente_id}"
-                                id="componente_{$value.componente_id}">
+                                id="componente_{$value.componente_id}" {if="$value.presenca == 1"}checked{/if}>
                             <label for="componente_{$value.componente_id}" class="custom-control-label"
                                 title="Marcar componente como presente">{$value.nome}</label>
                         </div>
@@ -42,7 +42,7 @@
                 </div>
     
                 <button type="submit" class="btn btn-success float-right" title="Salvar lista de chamada">
-                    <i class="fas fa-fw fa-check"></i> Confirmar</button>
+                    <i class="fas fa-fw fa-check"></i> Salvar</button>
             </form>
         </div>
         <div class="card-footer"></div>
