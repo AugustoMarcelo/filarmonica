@@ -1,0 +1,45 @@
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="/">Início</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="/tocatas">Tocatas</a>
+    </li>
+    <li class="breadcrumb-item active">Editar</li>
+</ol>
+<div class="card">
+    <div class="card-header">
+        Editar Tocata
+    </div>
+    <div class="card-body">
+        <form class="needs-validation" action="/tocatas/editar/{$tocata.id}" method="post" novalidate>
+            <div class="row">
+                <div class="form-group col-12 col-md-6 required">
+                    <label for="local">Local:</label>
+                    <input type="text" class="form-control" name="local" id="local" placeholder="local" value="{$tocata.local}"
+                        required="required">
+                    <div class="invalid-feedback">Este campo deve ser preenchido!</div>
+                </div>
+                <div class="form-group col-12 col-md-4 required">
+                    <label for="data">Data:</label>
+                    <input type="date" name="data_tocata" id="data_tocata" class="form-control" value="{$tocata.data_tocata}" required="required">
+                    <div class="invalid-feedback">Este campo deve ser preenchido!</div>
+                </div>
+                <div class="form-group col-12 col-md-2 required">
+                    <label for="horario">Horário:</label>
+                    <input type="time" name="horario" id="horario" class="form-control" value="{$tocata.horario}" required>
+                    <div class="invalid-feedback">Este campo deve ser preenchido!</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <label for="observacoes">Observações:</label>
+                    <textarea id="observacoes" name="observacoes" class="form-control" placeholder="Digite alguma informação sobre a tocata...">{$tocata.observacoes}</textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success float-right" title="Atualizar tocata">
+                <i class="fas fa-fw fa-check"></i> Salvar</button>
+        </form>
+    </div>
+    <div class="card-footer"></div>
+</div>
