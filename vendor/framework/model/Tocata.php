@@ -57,7 +57,7 @@
 
         public function delete() {
             $db = new Database();
-            $db->query("DELETE FROM tb_tocatas WHERE id = :id", [":id" => $this->getId()]);
+            $db->query("CALL sp_delete_tocatas (:param_tocata_id)", [":param_tocata_id" => $this->getId()]);
         }
     }
 ?>
