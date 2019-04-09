@@ -20,9 +20,9 @@
         User::verifyLogin();
         $page = new Page([
             "data" => array(
+                "homeClassActive" => "active",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "frequenciasClassActive" => "",
                 "tocatasClassActive" => ""
             )
         ]);
@@ -63,9 +63,9 @@
         $users = User::listAll();
         $page = new Page(array(
             "data" => array(
+                "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "active",
-                "frequenciasClassActive" => "",
                 "tocatasClassActive" => ""
             )
         ));
@@ -81,12 +81,14 @@
     // Rota para listar componentes
     $app->get('/componentes', function() {
         User::verifyLogin();
-        $componentes = Componente::listAll();
+        $componentes = Componente::listAll([
+            "ORDER BY nome ASC"
+        ]);
         $page = new Page(array(
             "data" => array(
+                "homeClassActive" => "",
                 "componentesClassActive" => "active",
                 "userClassActive" => "",
-                "frequenciasClassActive" => "",
                 "tocatasClassActive" => ""
             )
         ));
@@ -100,9 +102,9 @@
         User::verifyLogin();
         $page = new Page(array(
             "data" => array(
+                "homeClassActive" => "",
                 "componentesClassActive" => "active",
                 "userClassActive" => "",
-                "frequenciasClassActive" => "",
                 "tocatasClassActive" => ""
             )
         ));
@@ -130,9 +132,9 @@
         $componente->get((int) $id);
         $page = new Page(array(
             "data" => array(
+                "homeClassActive" => "",
                 "componentesClassActive" => "active",
                 "userClassActive" => "",
-                "frequenciasClassActive" => "",
                 "tocatasClassActive" => ""
             )
         ));
@@ -172,9 +174,9 @@
         $tocatas = Tocata::listAll();
         $page = new Page(array(
             "data" => array(
+                "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "frequenciasClassActive" => "",
                 "tocatasClassActive" => "active"
             )
         ));
@@ -188,9 +190,9 @@
         $componentes = Componente::listAll();
         $page = new Page(array(
             "data" => array(
+                "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "frequenciasClassActive" => "",
                 "tocatasClassActive" => "active"
             )
         ));
@@ -209,13 +211,6 @@
         $tocata->save();
         header("Location: /tocatas");
         exit;
-        // foreach ($_POST as $key => $value) {
-        //     $id = explode('_', $key);
-        //     if ($id[0] == 'componente') {
-        //         var_dump($id[1]);
-        //     }
-        // }
-        // exit;
     });
 
     // ROTA PARA ATUALIZAR UMA TOCATA
@@ -225,9 +220,9 @@
         $tocata->get((int) $idtocata);
         $page = new Page(array(
             "data" => array(
+                "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "frequenciasClassActive" => "",
                 "tocatasClassActive" => "active"
             )
         ));
@@ -262,18 +257,27 @@
     $app->get('/tocatas/:idtocata/chamada', function($idtocata) {
         $frequencia = new Frequencia();
         $frequencia->get((int) $idtocata);
-        if (count($frequencia->getPresencas()) > 0) {
+        foreach ($frequencia->getPresencas() as $componente) {
+            if ((int)$componente['presenca'] == 1) {
+                $editRoute = true;
+                break;
+            }
+        }
+        if (isset($editRoute)) {
             header("Location: /tocatas/editar/$idtocata/chamada");
             exit;
         }
-        $componentes = Componente::listAll();
+        $componentes = Componente::listAll([
+            "WHERE ativo = 1",
+            "ORDER BY nome ASC"
+        ]);
         $tocata = new Tocata();
         $tocata->get((int) $idtocata);
         $page = new Page(array(
             "data" => array(
+                "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "frequenciasClassActive" => "",
                 "tocatasClassActive" => "active"
             )
         ));
@@ -292,9 +296,9 @@
         $tocata->get((int) $idtocata);
         $page = new Page(array(
             "data" => array(
+                "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "frequenciasClassActive" => "",
                 "tocatasClassActive" => "active"
             )
         ));
