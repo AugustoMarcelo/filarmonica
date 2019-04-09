@@ -31,17 +31,19 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>Observações</th>
                         <th>Local</th>
                         <th>Data</th>
                         <th>Horário</th>
-                        <th></th>
+                        <th class="no-sort"></th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
+                        <th>Observações</th>
                         <th>Local</th>
                         <th>Data</th>
                         <th>Horário</th>
@@ -52,6 +54,7 @@
                     {loop="$tocatas"}
                     <tr class="clickable" style="cursor: pointer;" data-href="/tocatas/editar/{$value.id}"
                     title="Clique para alterar o registro">
+                        <td>{$value.observacoes}</td>
                         <td>{$value.local}</td>
                         <td>{function="transform('Y-m-d', 'd/m/Y', $value.data_tocata)"}</td>
                         <td>{$value.horario}</td>
@@ -59,7 +62,7 @@
                             <a href="#" title="Remover registro" data-link="/tocatas/delete/{$value.id}" data-toggle="modal" data-target="#confirmDeleteModal" class="btn btn-danger btn-sm"><i
                                 class="fas fa-trash-alt"></i> Remover</a>
                             <a href="/tocatas/{$value.id}/chamada" title="Abrir lista de chamada" class="btn btn-info btn-sm"><i
-                                class="fas fa-tasks"></i> Fazer Chamada</a>
+                                class="fas fa-tasks"></i> Fazer chamada</a>
                         </td>
                     </tr>
                     {/loop}
