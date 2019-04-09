@@ -1,5 +1,8 @@
-# filarmonica
+# Filarmonica
 Sistema de gerenciamento de tocatas e músicos para bandas filarmônicas
+
+# Objetivo
+Projeto criado com o objetivo de estudar o sistema de rotas com php utilizando o RainTpl como gerenciador de templates.
 
 # Funcionalidades
 - Cadastro de Componentes
