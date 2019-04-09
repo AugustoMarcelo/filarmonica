@@ -21,7 +21,7 @@
 
         public function get($id) {
             $db = new Database();
-            $results = $db->select("SELECT f.*, c.nome FROM tb_frequencias f RIGHT JOIN tb_componentes c ON f.componente_id = c.id WHERE tocata_id = :id ORDER BY c.nome", [":id" => $id]);
+            $results = $db->select("SELECT f.*, c.nome FROM tb_frequencias f RIGHT JOIN tb_componentes c ON f.componente_id = c.id AND f.tocata_id = :id OR f.tocata_id IS NULL ORDER BY c.nome", [":id" => $id]);
             foreach ($results as $result) {
                 $this->presencas[] = $result;
             }
