@@ -6,10 +6,10 @@ Projeto criado com o objetivo de estudar o sistema de rotas com php utilizando o
 
 # Funcionalidades
 - Cadastro de Componentes
-    [] Cadastrar
-    [] Editar
-    [] Excluir
-    [] Pesquisa
+    - [ ] Cadastrar
+    - [ ] Editar
+    - [ ] Excluir
+    - [ ] Pesquisa
 - Cadastro de Tocatas
 - Cadastro de Usuários (Administradores)
 - Cadastro de Frequência
