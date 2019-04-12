@@ -3,3 +3,5 @@ views-cache/
 views-cache/**
 # Ignorando o arquivo de ambiente de trabalho do VS Code
 *.code-workspace
+# Ignorar classe Mailer.php
+Mailer.php
