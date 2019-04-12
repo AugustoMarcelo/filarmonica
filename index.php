@@ -49,14 +49,6 @@
         exit;
     });
 
-    $app->get('/forgot-password', function() {
-        $page = new Page(array(
-            "header" => false,
-            "footer" => false
-        ));
-        $page->setTemplate("forgot-password");
-    });
-
     // Rota para listar usuários
     $app->get('/users', function() {
         User::verifyLogin();
@@ -327,6 +319,66 @@
         }
         header("Location: /tocatas");
         exit;
+    });
+
+    // ROTA PARA RESETAR SENHA
+    $app->get('/recuperar-senha', function() {
+        $page = new Page(array(
+            "header" => false,
+            "footer" => false
+        ));
+        $page->setTemplate('forgot-password');
+    });
+
+    $app->post('/recuperar-senha', function() {
+        $user = User::recoverPassword($_POST['email']);
+        header("Location: /recuperar-senha/enviado");
+        exit;
+    });
+
+    $app->get('/recuperar-senha/enviado', function() {
+        $page = new Page(array(
+            "header" => false,
+            "footer" => false
+        ));
+        $page->setTemplate('forgot-sent');
+    });
+
+    // ROTA ACESSADA PELO LINK ENVIADO NO E-MAIL
+    $app->get('/resetar-senha', function() {
+
+        $user = User::validateRecoverCode($_GET['code']);
+
+        $page = new Page(array(
+            "header" => false,
+            "footer" => false
+        ));
+        $page->setTemplate('forgot-reset', array(
+            "name" => $user['user'],
+            "code" => $_GET['code']
+        ));
+    });
+
+    // ROTA PARA LINKS JÁ EXPIRADOS OU UTILIZADOS
+    $app->get('/resetar-senha/error', function() {
+        $page = new Page([
+            "header" => false,
+            "footer" => false
+        ]);
+        $page->setTemplate('forgot-reset-error');
+    });
+
+    $app->post('/resetar-senha', function() {
+        $forgotUser = User::validateRecoverCode($_POST['code']);
+        User::setDataRecover($forgotUser['recovery_id']);
+        $user = new User();
+        $user->get((int) $forgotUser['id']);
+        $user->setNewPassword($_POST['password']);
+        $page = new Page([
+            "header" => false,
+            "footer" => false
+        ]);
+        $page->setTemplate('forgot-reset-success');
     });
 
     $app->run();
