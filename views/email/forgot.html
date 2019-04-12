@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recuperação de Senha</title>
+
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        header {
+            background-color: #CECECE;
+            padding: 1.5rem;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+
+        td {
+            color: grey;
+        }
+
+        td small {
+            color: #000;
+        }
+
+        header span {
+            padding: 3px 0px;
+            border-top: 2px solid #EEE;
+            border-bottom: 2px solid #EEE;
+        }
+
+        a.btn-link {
+            margin: 10px 0;
+            align-self: center;
+            background: #62be7f;
+            border: 2px solid #62be7f;
+            font-weight: bold;
+            transition: 0.2s ease all;
+            padding: 10px 40px;
+            font-size: 16px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #FFF;
+        }
+
+        a.btn-link:hover {
+            background: #56a263;
+            border-color: #56a263;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #CECECE;
+            margin-top: 1rem;
+            padding: 1.5rem;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <span>SISTEMAS</span>
+        <span>OLECRAM</span>
+    </header>
+    <h3>Olá, {$name}</h3>
+
+    <table width="100%">
+        <tbody>
+            <tr>
+                <td>Recentemente, você fez uma solicitação para resetar a senha da sua conta no Filarmônica. Clique no botão abaixo para resetar sua senha. <strong>Esse link será válido somente por 1 hora.</strong></td>
+            </tr>
+            <tr>
+                <td style="padding: 20px 0; text-align: center;"><a class="btn-link" href="{$link}">Resetar senha</a></td> 
+            </tr>
+            <tr>
+                <td>Se você não fez essa solicitação, por favor, entre em contato com o administrador através do e-mail sistemas.olecram@gmail.com.</td>
+            </tr>
+            <tr>
+                <td style="padding-top: 20px;">Agradecemos,</td>
+            </tr>
+            <tr>
+                <td>Sistemas Olecram</td>
+            </tr>
+            <tr><td><hr></td></tr>
+            <tr>
+                <td style="padding-top: 30px;"><small>Se você estiver com problemas para acessar através do botão acima, copie e cole o link abaixo.</small></td>
+            </tr>
+            <tr><td><a style="text-decoration: none;" href="{$link}">{$link}</a></td></tr>
+        </tbody>
+    </table>
+    <footer>
+        &copy; 2019 Filarmônica - Todos os direitos reservados.
+    </footer>
+</body>
+
+</html>
