@@ -18,13 +18,13 @@
         <form class="needs-validation" action="/tocatas/{$tocata.id}/chamada" method="post" novalidate>
             <div class="row text-muted">
                 <div class="col-12 col-md-4">
-                    <p>Local: {$tocata.local}</p>
+                    <p><span class="badge badge-info">Local:</span> {$tocata.local}</p>
                 </div>
                 <div class="col-12 col-md-4">
-                    <p>Data: {function="transform('Y-m-d', 'd/m/Y', $tocata.data_tocata)"}</p>
+                    <p><span class="badge badge-info">Data:</span> {function="transform('Y-m-d', 'd/m/Y', $tocata.data_tocata)"}</p>
                 </div>
                 <div class="col-12 col-md-4">
-                    <p>Horário: {$tocata.horario}</p>
+                    <p><span class="badge badge-info">Horário:</span> {$tocata.horario}</p>
                 </div>
             </div>
             <h6 class="custom-border">Componentes ({function="count($componentes)"})</h6>
@@ -35,7 +35,7 @@
                         <input type="checkbox" class="custom-control-input" name="componente_{$value.id}"
                             id="componente_{$value.id}">
                         <label for="componente_{$value.id}" class="custom-control-label"
-                            title="Marcar componente como presente">{$value.nome}</label>
+                            title="Marcar componente como presente">{$value.nome} <i class="fas fa-file-signature" title="Justificar uma falta"></i></label>
                     </div>
                 </div>
                 {/loop}
