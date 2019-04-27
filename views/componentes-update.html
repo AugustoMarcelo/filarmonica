@@ -15,11 +15,15 @@
     <div class="card-body">
         <form class="needs-validation" action="/componentes/editar/{$componente.id}" method="post" novalidate>
             <div class="row">
-                <div class="form-group col-12 required">
+                <div class="form-group col-12  col-sm-12 col-md-9 required">
                     <label for="nome">Nome:</label>
                     <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome"
                         value="{$componente.nome}" required="required">
                     <div class="invalid-feedback">Este campo deve ser preenchido!</div>
+                </div>
+                <div class="form-group col-12 col-sm-12 col-md-3">
+                    <label for="matricula">Matrícula:</label>
+                    <input type="number" class="form-control" name="matricula" id="matricula" value='{if="isset($componente.matricula)"}$componente.matricula{/if}'>
                 </div>
             </div>
             <div class="row">
@@ -49,7 +53,7 @@
             </div>
             <h6 class="custom-border">Informações de Fardamento</h6>
             <div class="row">
-                <div class="form-group col-12 col-md-4 col-lg-3">
+                <div class="form-group col-12 col-md-4 col-lg-2">
                     <label for="tam_camiseta">Camiseta:</label>
                     <select class="custom-select" name="tam_camiseta">
                         <option>Tamanhos</option>
@@ -72,7 +76,11 @@
                         placeholder="Número" min="1"
                         value='{if="isset($componente.tam_mangas_compridas)"}{$componente.tam_mangas_compridas}{/if}'>
                 </div>
-                <div class="form-group col-12 col-md-4 col-lg-3">
+                <div class="form-group col-12 col-md-4 col-lg-2">
+                    <label for="tam_calca">Calça:</label>
+                    <input type="number" name="tam_calca" id="tam_calca" class="form-control" min="1" value='{if="isset($componente.tam_calca)"}{$componente.tam_calca}{/if}'>
+                </div>
+                <div class="form-group col-12 col-md-4 col-lg-2">
                     <label for="tam_sapato">Sapato:</label>
                     <input type="number" class="form-control" name="tam_sapato" id="tam_sapato" placeholder="Número"
                         min="1" value='{if="isset($componente.tam_sapato)"}{$componente.tam_sapato}{/if}'>
