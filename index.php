@@ -163,7 +163,9 @@
     // Rota para listar todas as tocatas
     $app->get('/tocatas', function() {
         User::verifyLogin();
-        $tocatas = Tocata::listAll();
+        $tocatas = Tocata::listAll([
+            "ORDER BY data_tocata DESC, horario DESC"
+        ]);
         $page = new Page(array(
             "data" => array(
                 "homeClassActive" => "",
