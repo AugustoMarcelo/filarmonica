@@ -35,7 +35,7 @@
                             <input type="checkbox" class="custom-control-input" name="componente_{$value.id}"
                                 id="componente_{$value.id}" {if="$value.presenca == 1"}checked{/if}>
                             <label for="componente_{$value.id}" class="custom-control-label"
-                                title="Marcar componente como presente">{$value.nome}</label>
+                                title="Marcar componente como presente">{$value.nome} <i class="fas fa-file-signature" title="Justificar uma falta"></i></label>
                         </div>
                     </div>
                     {/loop}
