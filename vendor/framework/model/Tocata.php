@@ -10,9 +10,16 @@
          * Retorna todos as tocatas cadastradas no banco
          * @return array
          */
-        public static function listAll() {
+        public static function listAll(array $conditions = null) {
             $db = new Database();
-            return $db->select("SELECT * FROM tb_tocatas ORDER BY data_tocata DESC, horario DESC");
+            $where = '';
+            if (isset($conditions) && !is_null($conditions) && !empty($conditions)) {
+                foreach ($conditions as $condition) {
+                    $where .= "$condition ";
+                }
+                $where = rtrim($where, ' ');
+            }
+            return $db->select("SELECT * FROM tb_tocatas $where");
         }
 
         /**
