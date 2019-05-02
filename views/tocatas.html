@@ -37,6 +37,7 @@
             <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Observações</th>
                         <th>Local</th>
                         <th>Data</th>
@@ -46,6 +47,7 @@
                 </thead>
                 <tfoot>
                     <tr>
+                        <th>#</th>
                         <th>Observações</th>
                         <th>Local</th>
                         <th>Data</th>
@@ -57,6 +59,7 @@
                     {loop="$tocatas"}
                     <tr class="clickable" style="cursor: pointer;" data-href="/tocatas/editar/{$value.id}"
                     title="Clique para alterar o registro">
+                        <td>{$key+1}</td>
                         <td>{$value.observacoes}</td>
                         <td>{$value.local}</td>
                         <td>{function="transform('Y-m-d', 'd/m/Y', $value.data_tocata)"}</td>
