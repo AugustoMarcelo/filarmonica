@@ -66,5 +66,12 @@
             $db = new Database();
             $db->query("CALL sp_delete_tocatas (:param_tocata_id)", [":param_tocata_id" => $this->getId()]);
         }
+
+        public static function getFaultsForMonth($month) {
+            $db = new Database();
+            return $db->select("SELECT c.nome, :month AS month, COUNT(t.id) AS qtde_tocatas, SUM(IF(f.presenca = 0 OR f.presenca IS NULL, 1, 0)) AS faltas FROM tb_frequencias f RIGHT JOIN tb_tocatas t ON f.tocata_id = t.id OR f.tocata_id IS NULL INNER JOIN tb_componentes c ON f.componente_id = c.id OR f.componente_id IS NULL WHERE DATE_FORMAT(t.data_tocata,'%Y-%m') = :month AND c.ativo = 1 GROUP BY c.nome ORDER BY c.nome", [
+                ":month" => $month
+            ]);
+        }
     }
 ?>
