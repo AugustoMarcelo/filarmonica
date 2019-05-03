@@ -35,17 +35,19 @@
                             <input type="checkbox" class="custom-control-input" name="componente_{$value.id}"
                                 id="componente_{$value.id}" {if="$value.presenca == 1"}checked{/if}>
                             <label for="componente_{$value.id}" class="custom-control-label"
-                                title="Marcar componente como presente">{$value.nome} <i class="fas fa-file-signature" title="Justificar uma falta"></i></label>
+                                title="Marcar componente como presente">{$value.nome}</label>
+                            <i class='fas fa-file-signature clickable justify-fault {if="$value.presenca == 2"}text-success{/if}' title="Justificar uma falta"></i>
                         </div>
                     </div>
                     {/loop}
                 </div>
+                <input type="hidden" name="justificativas" id="justificativas" value="{$justificativas}">
                 <hr>
-                <button type="submit" class="btn btn-outline-danger" title="Gerar PDF da lista de chamada">
-                        <i class="far fa-file-pdf"></i> Gerar PDF</button>
+                <a href="/tocatas/editar/{$tocata.id}/chamada/folha" target="_blank" class="btn btn-outline-danger" title="Gerar PDF da lista de chamada">
+                        <i class="far fa-file-pdf"></i> Gerar PDF</a>
                 <button type="submit" class="btn btn-success float-right" title="Salvar lista de chamada">
                     <i class="fas fa-fw fa-check"></i> Salvar</button>
             </form>
         </div>
-        <div class="card-footer"></div>
+        <!-- <div class="card-footer"></div> -->
     </div>
