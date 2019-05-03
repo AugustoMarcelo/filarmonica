@@ -10783,3 +10783,7 @@ body.sidebar-toggled footer.sticky-footer {
     margin-bottom: 1rem;
   }
 }
+
+.clickable {
+  cursor: pointer;
+}
