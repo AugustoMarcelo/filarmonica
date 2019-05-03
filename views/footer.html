@@ -62,6 +62,30 @@
     </div>
 </div>
 
+<!-- Month Choose Modal -->
+<div class="modal fade" id="monthChooseModal" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="monthChooseLabelModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="monthChooseLabelModal">Selecionar mês/ano</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/tocatas/relatorio/folha" method="POST" target="_blank" class="form-row">
+                    <div class="col-9">
+                        <input class="form-control" type="month" name="month" id="month">
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-outline-primary btn-block" type="submit">Gerar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
