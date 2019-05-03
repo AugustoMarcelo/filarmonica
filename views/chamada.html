@@ -35,13 +35,16 @@
                         <input type="checkbox" class="custom-control-input" name="componente_{$value.id}"
                             id="componente_{$value.id}">
                         <label for="componente_{$value.id}" class="custom-control-label"
-                            title="Marcar componente como presente">{$value.nome} <i class="fas fa-file-signature" title="Justificar uma falta"></i></label>
+                            title="Marcar componente como presente">{$value.nome}</label>
+                            <i class="fas fa-file-signature clickable justify-fault" title="Justificar uma falta"></i>
                     </div>
                 </div>
                 {/loop}
             </div>
+            <input type="hidden" name="justificativas" id="justificativas">
+            <hr>
             <button type="submit" class="btn btn-success float-right" title="Salvar lista de chamada">
-                <i class="fas fa-fw fa-check"></i> Confirmar</button>
+                <i class="fas fa-fw fa-check"></i> Salvar</button>
         </form>
     </div>
     <div class="card-footer"></div>
