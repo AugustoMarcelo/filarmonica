@@ -41,7 +41,7 @@
         public function get($id) {
             $db = new Database();
             // $results = $db->select("SELECT c.nome, c.id, IF(f.presenca IS NULL, 0, 1) AS presenca FROM tb_frequencias f RIGHT JOIN tb_componentes c ON f.componente_id = c.id AND f.tocata_id = :id OR f.tocata_id IS NULL WHERE c.ativo = 1 ORDER BY c.nome", [":id" => $id]);
-            $results = $db->select("SELECT c.nome, c.id, f.presenca FROM tb_frequencias f INNER JOIN tb_componentes c ON f.componente_id = c.id AND f.tocata_id = :id ORDER BY c.nome", [":id" => $id]);
+            $results = $db->select("SELECT c.matricula, c.nome, c.id, f.presenca FROM tb_frequencias f INNER JOIN tb_componentes c ON f.componente_id = c.id AND f.tocata_id = :id ORDER BY c.nome", [":id" => $id]);
             foreach ($results as $result) {
                 $this->presencas[] = $result;
             }
