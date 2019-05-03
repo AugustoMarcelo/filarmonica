@@ -258,7 +258,7 @@
         $frequencia = new Frequencia();
         $frequencia->get((int) $idtocata);
         foreach ($frequencia->getPresencas() as $componente) {
-            if ((int)$componente['presenca'] == 1) {
+            if ((int)$componente['presenca'] == 1 || (int)$componente['presenca'] == 2) {
                 $editRoute = true;
                 break;
             }
@@ -301,9 +301,16 @@
                 "tocatasClassActive" => "active"
             )
         ));
+        $justificativas = "";
+        foreach ($frequencia->getPresencas() as $componente) {
+            if ($componente['presenca'] == 2) {
+                $justificativas .= $componente['id'].",";
+            }
+        }
         $page->setTemplate('chamada-update', array(
             "tocata" => $tocata->getData(),
-            "presencas" => $frequencia->getPresencas()
+            "presencas" => $frequencia->getPresencas(),
+            "justificativas" => $justificativas
         ));
     });
 
@@ -323,6 +330,12 @@
                 $frequencia->save();
             }
         }
+        $justificativas = explode(",", rtrim($_POST['justificativas'], ","));
+        $frequencia->setPresenca(2);
+        for ($j = 0; $j < count($justificativas); $j++) {
+            $frequencia->setComponente_ID($justificativas[$j]);
+            $frequencia->save();
+        }
         $frequencia->setFaults();
         header("Location: /tocatas");
         exit;
@@ -330,6 +343,14 @@
 
     $app->post('/tocatas/relatorio/folha', function() {
         Report::monthFaults(Tocata::getFaultsForMonth($_POST['month']), "folha-mensal-".$_POST['month'], false);
+    });
+
+    $app->get('/tocatas/editar/:idtocata/chamada/folha', function($idtocata) {
+        $frequencia = new Frequencia();
+        $frequencia->get($idtocata);
+        $tocata = new Tocata();
+        $tocata->get($idtocata);
+        Report::individualCallList($frequencia->getPresencas(), $tocata, "folha-individual", false);
     });
 
     // ROTA PARA RESETAR SENHA
