@@ -11,7 +11,7 @@
     use Framework\model\Tocata;
     use Framework\model\Frequencia;
     use Framework\utils\DateUtils;
-    use Dompdf\Dompdf;
+    use Framework\utils\Report;
 
     $app = new Slim();
 
@@ -163,82 +163,7 @@
     });
 
     $app->get('/componentes/relatorio/fardamento', function() {
-        $componentes = Componente::listAll([
-            "ORDER BY nome ASC"
-        ]);
-        $html = "<!DOCTYPE html>";
-        $html .= "<html>";
-        $html .= "  <head>";
-        $html .= "    <title>Relatório de Fardamento</title>";
-        $html .= "    <style type='text/css'>";
-        $html .= "      @page { margin: 80px 25px; }";
-        // $html .= "      body { margin: 10px; }";
-        $html .= "      body {";
-        $html .= "        font-family: Calibri, DejaVu Sans, Arial;";
-        $html .= "        margin: 0;";
-        $html .= "        padding: 0;";
-        $html .= "        border: none;";
-        $html .= "        font-size: 18px;";
-        $html .= "      }";
-        // $html .= "      * { font-family: Verdana, Arial, sans-serif; }";
-        $html .= "      th, td { text-align: center; }";
-        $html .= "      table { padding: 10px; font-size: x-small;}";
-        // $html .= "      .footer { position: absolute; bottom: 0; background-color: #60A7A6; color: #FFF; }";
-        $html .= "      header {";
-        $html .= "        position: fixed;";
-        $html .= "        top: -60px;";
-        // $html .= "        left: 0px;";
-        // $html .= "        right: 0px;";
-        $html .= "        background-color: #cecece;";
-        $html .= "        height: 50px;";
-        $html .= "        text-align: center;";
-        $html .= "        line-height: 30px;";
-        $html .= "      }";
-        $html .= "    </style>";
-        $html .= "  </head>";
-        $html .= "  <body>";
-        // $html .= "    <header>Filarmônica Recreio Caicoense - Fardamento</header>";
-        $html .= "    <table border='1' width='100%' style='border-collapse: collapse;'>";
-        $html .= "      <thead>";
-        $html .= "        <tr>";
-        $html .= "          <th>Matrícula</th>";
-        $html .= "          <th>Nome</th>";
-        $html .= "          <th>Camiseta</th>";
-        $html .= "          <th>Mangas curtas</th>";
-        $html .= "          <th>Mangas longas</th>";
-        $html .= "          <th>Calça</th>";
-        $html .= "          <th>Sapato</th>";
-        $html .= "        </tr>";
-        $html .= "      </thead>";
-        $html .= "      <tbody>";
-        foreach ($componentes as $c) {
-            $html .= "        <tr>";
-            $html .= "          <td>".$c['matricula']."</td>";
-            $html .= "          <td>".$c['nome']."</td>";
-            $html .= "          <td>".$c['tam_camiseta']."</td>";
-            $html .= "          <td>".$c['tam_mangas_curtas']."</td>";
-            $html .= "          <td>".$c['tam_mangas_compridas']."</td>";
-            $html .= "          <td>".$c['tam_calca']."</td>";
-            $html .= "          <td>".$c['tam_sapato']."</td>";
-            $html .= "        </tr>";
-        }
-        $html .= "      </tbody>";
-        $html .= "    </table>";
-        $html .= "  </body>";
-        $html .= "</html>";
-        $dompdf = new DOMPDF();
-        $dompdf->setPaper('A4', 'landscape');
-        $dompdf->loadHtml($html);
-        $dompdf->render();
-        $canvas = $dompdf->get_canvas();
-        $canvas->page_text(300, 20, "Filarmônica Recreio Caicoense - Lista de Fardamento", '', 10, array(0,0,0));
-        $canvas->page_text(380, 35, count($componentes) . " componentes", '', 10, array(0,0,0));
-        $canvas->page_text(780, 570, "Pág. {PAGE_NUM}/{PAGE_COUNT}", '', 8, array(0,0,0));
-        $canvas->page_text(26, 570, date("d/m/Y H:i:s"), '', 8, array(0,0,0));
-        $canvas->page_text(320, 570, "Desenvolvido por: mrclgst10@gmail.com", '', 8, array(0,0,0));
-        $dompdf->stream("fardamento.pdf", [
-            "Attachment" => false
-        ]);
+        Report::uniforms(Componente::listAll(["ORDER BY nome ASC"]), "Fardamento.pdf", false);
     });
 
     // Rota para listar todas as tocatas
@@ -403,8 +328,8 @@
         exit;
     });
 
-    $app->get('/tocatas/:idtocata/folha', function($idtocata) {
-        "SELECT c.nome, COUNT(t.id) AS qtde_tocatas, SUM(IF(f.presenca = 0 OR f.presenca IS NULL, 1, 0)) AS faltas FROM tb_frequencias f RIGHT JOIN tb_tocatas t ON f.tocata_id = t.id OR f.tocata_id IS NULL INNER JOIN tb_componentes c ON f.componente_id = c.id OR f.componente_id IS NULL WHERE DATE_FORMAT(t.data_tocata,'%m-%Y') = '04-2019' AND c.ativo = 1 GROUP BY c.nome ORDER BY c.nome";
+    $app->post('/tocatas/relatorio/folha', function() {
+        Report::monthFaults(Tocata::getFaultsForMonth($_POST['month']), "folha-mensal-".$_POST['month'], false);
     });
 
     // ROTA PARA RESETAR SENHA
