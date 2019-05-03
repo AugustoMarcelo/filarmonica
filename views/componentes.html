@@ -41,6 +41,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Matrícula</th>
                         <th>Nome</th>
                         <th>Telefone</th>
                         <th class="no-sort"></th>
@@ -49,6 +50,7 @@
                 <tfoot>
                     <tr>
                         <th>#</th>
+                        <th>Matrícula</th>
                         <th>Nome</th>
                         <th>Telefone</th>
                         <th></th>
@@ -59,6 +61,7 @@
                     <tr class="clickable" style="cursor: pointer;" data-href="/componentes/editar/{$value.id}"
                         title="Clique para alterar o registro">
                         <td>{$key+1}</td>
+                        <td>{$value.matricula}</td>
                         <td><i class='fas fa-power-off {if="$value.ativo == 1"}text-success{else}text-danger{/if}' title='{if="$value.ativo == 1"}Usuário ativo{else}Usuário inativo{/if}'></i> {$value.nome}</td>
                         <td>{$value.telefone}</td>
                         <td>
