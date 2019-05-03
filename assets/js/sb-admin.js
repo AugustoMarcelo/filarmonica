@@ -67,4 +67,15 @@
     }
   });
 
+  $('.justify-fault').on('click', (e) => {
+    let justificativas = document.querySelector('#justificativas');
+    let componente_id = e.target.previousElementSibling.htmlFor.substr(11, 2);
+    if (String(justificativas.value).includes(componente_id)) {
+      justificativas.value = String(justificativas.value).replace(`${componente_id},`, ''); 
+    } else {
+      justificativas.value += `${componente_id},`;
+    }
+    e.target.classList.toggle('text-success');
+  });
+
 })(jQuery); // End of use strict
