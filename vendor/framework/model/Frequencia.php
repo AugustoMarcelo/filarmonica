@@ -3,6 +3,7 @@
 
     use Framework\database\Database;
     use Framework\Model;
+    use Framework\utils\Message;
 
     class Frequencia extends Model {
 
@@ -17,6 +18,7 @@
                 ":param_cadastrado_por" => $this->getCadastrado_Por(),
                 ":param_data_cadastro" => $this->getData_Cadastro()
             ));
+            Message::setMessage("Lista de chamada salva", Message::MESSAGE_SUCCESS);        
         }
 
         /**
