@@ -12,6 +12,7 @@
     use Framework\model\Frequencia;
     use Framework\utils\DateUtils;
     use Framework\utils\Report;
+    use Framework\utils\Message;
 
     $app = new Slim();
 
@@ -35,7 +36,9 @@
             "header" => false,
             "footer" => false
         ]);
-        $page->setTemplate("login");
+        $page->setTemplate("login", [
+            "message" => Message::getMessage()
+        ]);
     });
 
     $app->post('/login', function() {
@@ -63,8 +66,44 @@
             )
         ));
         $page->setTemplate("users", array(
-            "users" => $users
+            "users" => $users,
+            "message" => Message::getMessage()
         ));
+    });
+
+    // Rota para acessar o cadastro de usuários
+    $app->get('/users/cadastrar', function() {
+        User::verifyLogin();
+        $post = $_SESSION[User::SESSION]['post_submit'] ?? ["user" => "", "email" => "", "password" => ""];
+        $_SESSION[User::SESSION]['post_submit'] = NULL;
+        $page = new Page([
+            "data" => array(
+                "homeClassActive" => "",
+                "componentesClassActive" => "",
+                "userClassActive" => "active",
+                "tocatasClassActive" => "",
+                "post" => $post,
+                "message" => Message::getMessage()
+            ),
+        ]);
+        $page->setTemplate("users-create");
+    });
+
+    // Rota para cadastrar um usuário
+    $app->post('/users/cadastrar', function() {
+        User::verifyLogin();
+        $user = new User();
+        $_SESSION[User::SESSION]['post_submit'] = $_POST;
+        $_POST['ativo'] = isset($_POST['ativo']) ? 1 : 0;
+        $user->setData($_POST);
+        $saved = $user->save();
+        if ($saved) {
+            $_SESSION[User::SESSION]['post_submit'] = NULL;
+            header("Location: /users");
+            exit;
+        }
+        header('Location: /users/cadastrar');
+        exit;
     });
 
     $app->get('/users/editar/:id', function($id) {
@@ -181,7 +220,8 @@
             )
         ));
         $page->setTemplate("tocatas", array(
-            "tocatas" => $tocatas
+            "tocatas" => $tocatas,
+            "message" => Message::getMessage()
         ));
     });
 
@@ -345,7 +385,7 @@
         Report::monthFaults(Tocata::getFaultsForMonth($_POST['month']), "folha-mensal-".$_POST['month'], false);
     });
 
-    $app->get('/tocatas/editar/:idtocata/chamada/folha', function($idtocata) {
+    $app->get('/tocatas/:idtocata/chamada/folha', function($idtocata) {
         $frequencia = new Frequencia();
         $frequencia->get($idtocata);
         $tocata = new Tocata();
