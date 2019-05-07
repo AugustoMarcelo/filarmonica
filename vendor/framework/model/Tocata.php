@@ -3,6 +3,7 @@
 
     use Framework\database\Database;
     use Framework\Model;
+    use Framework\utils\Message;
 
     class Tocata extends Model {
 
@@ -36,6 +37,7 @@
                 ":data_cadastro" => $this->getData_Cadastro()
             ));
             $this->setData($results[0]);
+            Message::setMessage("Tocata cadastrada com sucesso", "success");
         }
 
         /**
@@ -60,6 +62,7 @@
                 ":param_data_atualizacao" => $this->getData_Atualizacao()
             ));
             $this->setData($results[0]);
+            Message::setMessage("Tocata editada com sucesso", Message::MESSAGE_SUCCESS);
         }
 
         public function delete() {
