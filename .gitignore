@@ -5,4 +5,5 @@ views-cache/**
 *.code-workspace
 # Ignorar classe Mailer.php
 Mailer.php
-vendor/
+vendor/*
+!vendor/framework/
