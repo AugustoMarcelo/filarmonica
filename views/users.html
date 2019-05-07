@@ -5,7 +5,15 @@
     </li>
     <li class="breadcrumb-item active">Usuários</li>
 </ol>
-
+<!-- Alert Message -->
+{if="isset($message.message)"}
+<div class="alert alert-{$message.type} alert-dismissible fade show" role="alert">
+    {$message.message}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{/if}
 <!-- DataTables Example -->
 <div class="card mb-3">
     <div class="card-header">
@@ -31,12 +39,13 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Usuário</th>
                         <th>E-mail</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -45,6 +54,7 @@
                         <th>ID</th>
                         <th>Usuário</th>
                         <th>E-mail</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </tfoot>
@@ -54,6 +64,7 @@
                         <td>{$value.id}</td>
                         <td>{$value.user}</td>
                         <td>{$value.email}</td>
+                        <td>{if="$value.ativo == 1"}Ativo{else}Inativo{/if}</td>
                         <td>
                             <a class="btn btn-sm btn-danger" href="/users/{$value.id}/delete"><i
                                     class="fas fa-trash-alt"></i>
