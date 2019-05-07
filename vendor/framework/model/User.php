@@ -4,6 +4,7 @@
     use Framework\database\Database;
     use Framework\Model;
     use Framework\utils\Mailer;
+    use Framework\utils\Message;
 
     class User extends Model {
 
@@ -18,12 +19,14 @@
         public static function login($user, $password) {
             $db = new Database();
             
-            $results = $db->select("SELECT * FROM tb_users WHERE user = :user", array(
+            $results = $db->select("SELECT * FROM tb_users WHERE user = :user AND ativo = 1", array(
                 ":user" => $user
             ));
 
             if (count($results) === 0) {
-                throw new \Exception("Usuário e/ou Senha estão incorretos");
+                Message::setMessage("Usuário e/ou senha estão incorretos", Message::MESSAGE_ERROR);
+                header("Location: /login");
+                exit;
             }
 
             $data = $results[0];
@@ -34,7 +37,9 @@
                 $_SESSION[User::SESSION] = $user->getData();
                 return $user;
             } else {
-                throw new \Exception("Usuário e/ou Senha estão incorretos");
+                Message::setMessage("Usuário e/ou senha estão incorretos", Message::MESSAGE_ERROR);
+                header("Location: /login");
+                exit;
             }
         }
 
@@ -43,9 +48,21 @@
          */
         public static function verifyLogin() {
             if (!isset($_SESSION[User::SESSION]) || !$_SESSION[User::SESSION] || !(int)$_SESSION[User::SESSION]["id"] > 0) {
+                Message::setMessage("Você precisa estar logado!", Message::MESSAGE_ERROR);
                 header("Location: /login");
                 exit;   
             }
+        }
+
+        /**
+         * Checa se o nome do usuário já não existe no banco de dados
+         * @param username Nome de usuário a ser verificado
+         */
+        public static function checkUsername($username) {
+            $db = new Database();
+            $results = $db->select("SELECT * FROM tb_users WHERE user = :user", [":user" => $username]);
+            if (count($results) >= 1) return false;;
+            return true;
         }
 
         /**
@@ -72,6 +89,27 @@
             $db = new Database();
             $results = $db->select("SELECT * FROM tb_users WHERE id = :id", [":id" => $id]);
             $this->setData($results[0]);
+        }
+
+        /**
+         * Salva um usuário no banco de dados
+         */
+        public function save() {
+            if (Self::checkUsername($this->getUser())) {
+                $db = new Database();
+                $results = $db->select("INSERT INTO tb_users (user, email, password, ativo) VALUES (:user, :email, :password, :ativo)", array(
+                    ":user" => $this->getUser(),
+                    ":email" => $this->getEmail(),
+                    ":password" => md5($this->getPassword()),
+                    ":ativo" => (int) $this->getAtivo()
+                ));
+                $this->setData($results[0]);
+                Message::setMessage("Usuário cadastrado com sucesso", Message::MESSAGE_SUCCESS);
+                return true;
+            } else {
+                Message::setMessage("Esse usuário já existe. Informe um nome único!", Message::MESSAGE_ERROR);
+                return false;
+            }
         }
 
         public static function recoverPassword($email) {
