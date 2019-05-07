@@ -5,7 +5,15 @@
     </li>
     <li class="breadcrumb-item active">Tocatas</li>
 </ol>
-
+<!-- Alert Message -->
+{if="isset($message.message)"}
+<div class="alert alert-{$message.type} alert-dismissible fade show" role="alert">
+    {$message.message}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{/if}
 <!-- DataTables Example -->
 <div class="card mb-3">
     <div class="card-header">
@@ -38,8 +46,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Observações</th>
                         <th>Local</th>
+                        <th>Observações</th>
                         <th>Data</th>
                         <th>Horário</th>
                         <th class="no-sort"></th>
@@ -48,8 +56,8 @@
                 <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>Observações</th>
                         <th>Local</th>
+                        <th>Observações</th>
                         <th>Data</th>
                         <th>Horário</th>
                         <th></th>
@@ -60,8 +68,8 @@
                     <tr class="clickable" style="cursor: pointer;" data-href="/tocatas/editar/{$value.id}"
                     title="Clique para alterar o registro">
                         <td>{$key+1}</td>
-                        <td>{$value.observacoes}</td>
                         <td>{$value.local}</td>
+                        <td>{$value.observacoes}</td>
                         <td>{function="transform('Y-m-d', 'd/m/Y', $value.data_tocata)"}</td>
                         <td>{$value.horario}</td>
                         <td>
