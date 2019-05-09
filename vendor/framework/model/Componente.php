@@ -3,6 +3,7 @@
 
     use Framework\database\Database;
     use Framework\Model;
+    use Framework\utils\Message;
 
     class Componente extends Model {
 
@@ -40,6 +41,7 @@
                 ":param_data_cadastro" => $this->getData_Cadastro()
             ));
             $this->setData($results[0]);
+            Message::setMessage("Componente cadastrado", Message::MESSAGE_SUCCESS);
         }
 
         /**
@@ -70,6 +72,7 @@
                 ":param_data_atualizacao" => $this->getData_Atualizacao()
             ));
             $this->setData($results[0]);
+            Message::setMessage("Componente atualizado", Message::MESSAGE_SUCCESS);
         }
 
         public function delete() {
