@@ -13,6 +13,7 @@
     use Framework\utils\DateUtils;
     use Framework\utils\Report;
     use Framework\utils\Message;
+    use Framework\utils\Cookie;
 
     $app = new Slim();
 
@@ -33,17 +34,31 @@
     });
 
     $app->get('/login', function() {
+        $cookie = array();
+        if (Cookie::get("LOGIN_COOKIE")) {
+            $cookie = [
+                "user" => Cookie::get("LOGIN_COOKIE"),
+                "password" => Cookie::get("PASSWORD_COOKIE"),
+                "remember" => Cookie::get("REMEMBER_COOKIE")
+            ];
+        }
         $page = new Page([
             "header" => false,
             "footer" => false
         ]);
         $page->setTemplate("login", [
-            "message" => Message::getMessage()
+            "message" => Message::getMessage(),
+            "cookie" => $cookie
         ]);
     });
 
     $app->post('/login', function() {
         User::login($_POST['user'], $_POST['password']);
+        if (isset($_POST['remember'])) {
+            Cookie::create("LOGIN_COOKIE", $_POST['user']);
+            Cookie::create("PASSWORD_COOKIE", $_POST['password']);
+            Cookie::create("REMEMBER_COOKIE", $_POST['remember']);
+        }
         header("Location: /");
         exit;
     });
