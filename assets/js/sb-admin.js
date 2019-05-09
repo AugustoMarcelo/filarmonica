@@ -78,4 +78,14 @@
     e.target.classList.toggle('text-success');
   });
 
+  $(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(() => {
+        console.log('SW registrado');
+      }).catch((error) => {
+        console.log('SW Error');
+      });
+    }
+  });
+
 })(jQuery); // End of use strict
