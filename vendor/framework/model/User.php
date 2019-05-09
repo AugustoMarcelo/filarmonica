@@ -43,6 +43,14 @@
             }
         }
 
+        public static function getFromSession() {
+            $user = new User();
+            if (isset($_SESSION[Self::SESSION])) {
+                $user->setData($_SESSION[Self::SESSION]);
+            }
+            return $user;
+        }
+
         /**
          * Verifica se o usuário está logado
          */
