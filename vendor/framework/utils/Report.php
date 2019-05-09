@@ -55,13 +55,13 @@
             $html .= "    <table border='1' width='100%' style='border-collapse: collapse;'>";
             $html .= "      <thead>";
             $html .= "        <tr>";
-            $html .= "          <th>Matrícula</th>";
-            $html .= "          <th>Nome</th>";
-            $html .= "          <th>Camiseta</th>";
-            $html .= "          <th>Mangas curtas</th>";
-            $html .= "          <th>Mangas longas</th>";
-            $html .= "          <th>Calça</th>";
-            $html .= "          <th>Sapato</th>";
+            $html .= "          <th class='bg-grey'>Matrícula</th>";
+            $html .= "          <th class='bg-grey'>Nome</th>";
+            $html .= "          <th class='bg-grey'>Camiseta</th>";
+            $html .= "          <th class='bg-grey'>Mangas curtas</th>";
+            $html .= "          <th class='bg-grey'>Mangas longas</th>";
+            $html .= "          <th class='bg-grey'>Calça</th>";
+            $html .= "          <th class='bg-grey'>Sapato</th>";
             $html .= "        </tr>";
             $html .= "      </thead>";
             $html .= "      <tbody>";
@@ -97,10 +97,10 @@
             $html .= "    <table border='1' width='100%' style='border-collapse: collapse;'>";
             $html .= "      <thead>";
             $html .= "        <tr>";
-            $html .= "          <th>Nome</th>";
-            $html .= "          <th>Faltas</th>";
-            $html .= "          <th>Total a pagar</th>";
-            $html .= "          <th>Pago</th>";
+            $html .= "          <th class='bg-grey'>Nome</th>";
+            $html .= "          <th class='bg-grey'>Faltas</th>";
+            $html .= "          <th class='bg-grey'>Total a pagar</th>";
+            $html .= "          <th class='bg-grey'>Pago</th>";
             $html .= "        </tr>";
             $html .= "      </thead>";
             $html .= "      <tbody>";
@@ -118,8 +118,8 @@
             }
             $html .= "        <tr>";
             $html .= "        <td></td>";
-            $html .= "        <td class='bg-grey text-white'>Total</td>";
-            $html .= "        <td class='bg-grey text-white'>R$ ".number_format($totalFaltas*Config::FAULT_VALUE, 2, ',', '.')."</td>";
+            $html .= "        <td class='bg-grey'>Total</td>";
+            $html .= "        <td class='bg-grey'>R$ ".number_format($totalFaltas*Config::FAULT_VALUE, 2, ',', '.')."</td>";
             $html .= "        <td></td>";
             $html .= "        </tr>";
             $html .= "      </tbody>";
@@ -138,18 +138,21 @@
 
         public static function individualCallList(array $data = array(), $tocata, string $fileName, $download = false) {
             $html = Self::getHeader();
-            $html .= "    <center><h6 class='title'>Filarmônica Recreio Caicoense</h6></center>";
-            $html .= "    <center><h6 class='subtitle'>Local: ".$tocata->getLocal()."</h6></center>";
+            $html .= "    <center><h6 class='title'>SECRETARIA MUNICIPAL DE EDUCAÇÃO, CULTURA E ESPORTES - SEMECE</h6></center>";
+            $html .= "    <center><h6 class='title'>SECRETARIA DE DESENVOLVIMENTO ECONÔMICO E TURISMO - SEDETUR</h6></center>";
+            $html .= "    <center><h6 class='title' style='margin-top: 10px;'>FOLHA DE FREQUÊNCIA DAS TOCATAS EXECUTADAS PELA BANDA DE MÚSICA RECREIO CAICOENSE</h6></center>";
+            // $html .= "    <center><h6 class='title'>Filarmônica Recreio Caicoense</h6></center>";
+            $html .= "    <center><h6 class='subtitle' style='margin-top: 10px;'>Local: ".$tocata->getLocal()."</h6></center>";
             $html .= "    <center><h6 class='subtitle'>Data: ".DateUtils::transform('Y-m-d', 'd/m/Y', $tocata->getData_Tocata())."</h6></center>";
             $html .= "    <center><h6 class='subtitle'>Horário: ".$tocata->getHorario()."</h6></center>";
             $html .= "    <table border='1' width='100%' style='border-collapse: collapse;'>";
             $html .= "      <thead>";
             $html .= "        <tr>";
-            $html .= "          <th width='10%'>Matrícula</th>";
-            $html .= "          <th width='25%'>Nome</th>";
-            $html .= "          <th width='10%'>Presença</th>";
-            $html .= "          <th wdith='30%'>Justificativa</th>";
-            $html .= "          <th width='25%'>Assinatura</th>";
+            $html .= "          <th class='bg-grey' width='10%'>Matrícula</th>";
+            $html .= "          <th class='bg-grey' width='25%'>Nome</th>";
+            $html .= "          <th class='bg-grey' width='10%'>Frequência</th>";
+            $html .= "          <th class='bg-grey' wdith='30%'>Justificativa</th>";
+            $html .= "          <th class='bg-grey' width='25%'>Assinatura</th>";
             $html .= "        </tr>";
             $html .= "      </thead>";
             $html .= "      <tbody>";
