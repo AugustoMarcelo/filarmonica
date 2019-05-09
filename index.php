@@ -25,7 +25,8 @@
                 "homeClassActive" => "active",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "tocatasClassActive" => ""
+                "tocatasClassActive" => "",
+                "user" => User::getFromSession()->getData()
             )
         ]);
         $page->setTemplate("index");
@@ -62,7 +63,8 @@
                 "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "active",
-                "tocatasClassActive" => ""
+                "tocatasClassActive" => "",
+                "user" => User::getFromSession()->getData()
             )
         ));
         $page->setTemplate("users", array(
@@ -82,6 +84,7 @@
                 "componentesClassActive" => "",
                 "userClassActive" => "active",
                 "tocatasClassActive" => "",
+                "user" => User::getFromSession()->getData(),
                 "post" => $post,
                 "message" => Message::getMessage()
             ),
@@ -107,7 +110,11 @@
     });
 
     $app->get('/users/editar/:id', function($id) {
-        $page = new Page();
+        $page = new Page([
+            "data" => [
+                "user" => User::getFromSession()->getData()
+            ]
+        ]);
     });
 
     // Rota para listar componentes
@@ -121,7 +128,9 @@
                 "homeClassActive" => "",
                 "componentesClassActive" => "active",
                 "userClassActive" => "",
-                "tocatasClassActive" => ""
+                "tocatasClassActive" => "",
+                "user" => User::getFromSession()->getData(),
+                "message" => Message::getMessage()
             )
         ));
         $page->setTemplate("componentes", array(
@@ -137,7 +146,9 @@
                 "homeClassActive" => "",
                 "componentesClassActive" => "active",
                 "userClassActive" => "",
-                "tocatasClassActive" => ""
+                "tocatasClassActive" => "",
+                "user" => User::getFromSession()->getData(),
+                "message" => Message::getMessage()
             )
         ));
         $page->setTemplate("componentes-create");
@@ -167,7 +178,8 @@
                 "homeClassActive" => "",
                 "componentesClassActive" => "active",
                 "userClassActive" => "",
-                "tocatasClassActive" => ""
+                "tocatasClassActive" => "",
+                "user" => User::getFromSession()->getData()
             )
         ));
         $page->setTemplate("componentes-update", array(
@@ -216,7 +228,8 @@
                 "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "tocatasClassActive" => "active"
+                "tocatasClassActive" => "active",
+                "user" => User::getFromSession()->getData()
             )
         ));
         $page->setTemplate("tocatas", array(
@@ -233,7 +246,8 @@
                 "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "tocatasClassActive" => "active"
+                "tocatasClassActive" => "active",
+                "user" => User::getFromSession()->getData()
             )
         ));
         $page->setTemplate("tocatas-create", array(
@@ -263,7 +277,8 @@
                 "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "tocatasClassActive" => "active"
+                "tocatasClassActive" => "active",
+                "user" => User::getFromSession()->getData()
             )
         ));
         $page->setTemplate("tocatas-update", array(
@@ -318,7 +333,8 @@
                 "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "tocatasClassActive" => "active"
+                "tocatasClassActive" => "active",
+                "user" => User::getFromSession()->getData()
             )
         ));
         $page->setTemplate('chamada', array(
@@ -338,7 +354,8 @@
                 "homeClassActive" => "",
                 "componentesClassActive" => "",
                 "userClassActive" => "",
-                "tocatasClassActive" => "active"
+                "tocatasClassActive" => "active",
+                "user" => User::getFromSession()->getData()
             )
         ));
         $justificativas = "";
