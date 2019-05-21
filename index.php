@@ -431,12 +431,18 @@
             "header" => false,
             "footer" => false
         ));
-        $page->setTemplate('forgot-password');
+        $page->setTemplate('forgot-password', [
+            "message" => Message::getMessage()
+        ]);
     });
 
     $app->post('/recuperar-senha', function() {
         $user = User::recoverPassword($_POST['email']);
-        header("Location: /recuperar-senha/enviado");
+        if (!is_null($user)) {
+            header("Location: /recuperar-senha/enviado");
+            exit;
+        }
+        header("Location: /recuperar-senha");
         exit;
     });
 
@@ -483,6 +489,23 @@
             "footer" => false
         ]);
         $page->setTemplate('forgot-reset-success');
+    });
+
+    $app->notFound(function() use ($app) {
+        if (!User::getFromSession()->getData()) {
+            header('Location: /login');
+            exit;
+        }
+        $page = new Page(array(
+            "data" => array(
+                "homeClassActive" => "",
+                "componentesClassActive" => "",
+                "userClassActive" => "",
+                "tocatasClassActive" => "active",
+                "user" => User::getFromSession()->getData()
+            )
+        ));
+        $page->setTemplate('404');
     });
 
     $app->run();
