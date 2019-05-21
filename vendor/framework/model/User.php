@@ -124,7 +124,8 @@
             $db = new Database();
             $results = $db->select("SELECT * FROM tb_users WHERE email = :email", [":email" => $email]);
             if (count($results) === 0) {
-                throw new \Exception("Não foi possível recuperar a senha no momento");
+                Message::setMessage("Não encontramos o e-mail informado", Message::MESSAGE_ERROR);
+                return null;
             } else {
                 $user = $results[0];
                 $results = $db->select("CALL sp_password_recovery (:user_id, :user_ip)", array(
@@ -133,7 +134,8 @@
                 ));
 
                 if (count($results[0]) === 0) {
-                    throw new \Exception("Não possível recuperar a senha no momento");
+                    Message::setMessage("Parece que o seu link já expirou...", Message::MESSAGE_ERROR);
+                    return null;
                 } else {
                     $recovery = $results[0];
                     $code = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, Self::SECRET, $recovery['recovery_id'], MCRYPT_MODE_ECB));
