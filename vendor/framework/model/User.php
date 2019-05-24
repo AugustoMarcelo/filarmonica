@@ -66,10 +66,25 @@
          * Checa se o nome do usuário já não existe no banco de dados
          * @param username Nome de usuário a ser verificado
          */
-        public static function checkUsername($username) {
+        public static function checkUsername($username, $userId) {
             $db = new Database();
-            $results = $db->select("SELECT * FROM tb_users WHERE user = :user", [":user" => $username]);
+            $results = $db->select("SELECT * FROM tb_users WHERE user = :user AND id <> :id", [":user" => $username, ":id" => $userId]);
             if (count($results) >= 1) return false;;
+            return true;
+        }
+
+        /**
+         * Checa se o email informado já não existe no banco de dados
+         * @param email Email do usuário a ser verificado
+         * @param userId Id do usuário que está checando, a fim de de pertimir que a consulta não o considere
+         */
+        public static function checkEmail($email, $userId) {
+            $db = new Database();
+            $results = $db->select("SELECT * FROM tb_users WHERE email = :email AND id <> :id", [
+                ":email" => $email,
+                ":id" => $userId
+            ]);
+            if (count($results) >= 1) return false;
             return true;
         }
 
@@ -103,7 +118,7 @@
          * Salva um usuário no banco de dados
          */
         public function save() {
-            if (Self::checkUsername($this->getUser())) {
+            if (Self::checkUsername($this->getUser(), $this->getId())) {
                 $db = new Database();
                 $results = $db->select("INSERT INTO tb_users (user, email, password, ativo) VALUES (:user, :email, :password, :ativo)", array(
                     ":user" => $this->getUser(),
@@ -114,6 +129,29 @@
                 $this->setData($results[0]);
                 Message::setMessage("Usuário cadastrado com sucesso", Message::MESSAGE_SUCCESS);
                 return true;
+            } else {
+                Message::setMessage("Esse usuário já existe. Informe um nome único!", Message::MESSAGE_ERROR);
+                return false;
+            }
+        }
+
+        public function update() {
+            if (Self::checkUsername($this->getUser(), $this->getId())) {
+                if (Self::checkEmail($this->getEmail(), $this->getId())) {
+                    $db = new Database();
+                    $results = $db->select("CALL sp_update_users (:param_id, :param_user, :param_email, :param_ativo)", [
+                        ":param_id" => $this->getId(),
+                        ":param_user" => $this->getUser(),
+                        ":param_email" => $this->getEmail(),
+                        ":param_ativo" => (int) $this->getAtivo()
+                    ]);
+                    $this->setData($results[0]);
+                    Message::setMessage("Usuário atualizado com sucesso", Message::MESSAGE_SUCCESS);
+                    return true;
+                } else {
+                    Message::setMessage("Esse email já existe. Informe um email diferente.", Message::MESSAGE_ERROR);
+                    return false;
+                }
             } else {
                 Message::setMessage("Esse usuário já existe. Informe um nome único!", Message::MESSAGE_ERROR);
                 return false;
