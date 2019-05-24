@@ -1,0 +1,48 @@
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="/">Início</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="/users">Usuários</a>
+    </li>
+    <li class="breadcrumb-item active">Editar</li>
+</ol>
+<!-- Alert Message -->
+{if="isset($message.message)"}
+<div class="alert alert-{$message.type} alert-dismissible fade show" role="alert">
+    {$message.message}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{/if}
+<div class="card">
+    <div class="card-header">
+        Editar Usuário
+    </div>
+    <div class="card-body">
+        <form class="needs-validation" action="/users/editar/{$user.id}" method="post" novalidate>
+            <div class="row">
+                <div class="form-group col-12 col-sm-12 col-md-5 required">
+                    <label for="user">Usuário:</label>
+                    <input type="text" value="{$user.user}" class="form-control" name="user" id="user" placeholder="Informe um nome para fazer login"
+                        required="required">
+                    <div class="invalid-feedback">Este campo deve ser preenchido!</div>
+                </div>
+                <div class="form-group col-12 col-sm-12 col-md-5 required">
+                    <label for="email">E-mail:</label>
+                    <input type="email" class="form-control" value="{$user.email}" name="email" id="email" placeholder="Informe um e-mail" required="required">
+                </div>
+                <div class="form-group col-12 col-md-2 align-self-end align-self-end">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" name="ativo" id="ativo" value="1" {if="$user.ativo == 1"}checked{/if}>
+                        <label for="ativo" class="custom-control-label">Ativo</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success float-right mt-3">
+                <i class="fas fa-fw fa-check"></i> Salvar</button>
+        </form>
+    </div>
+</div>
