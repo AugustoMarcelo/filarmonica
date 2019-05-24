@@ -125,11 +125,37 @@
     });
 
     $app->get('/users/editar/:id', function($id) {
+        User::verifyLogin();
+        $user = new User();
+        $user->get((int) $id);
         $page = new Page([
-            "data" => [
-                "user" => User::getFromSession()->getData()
-            ]
+            "data" => array(
+                "homeClassActive" => "",
+                "componentesClassActive" => "active",
+                "userClassActive" => "",
+                "tocatasClassActive" => "",
+                "user" => User::getFromSession()->getData(),
+                "message" => Message::getMessage()
+            )
         ]);
+        $page->setTemplate('users-update', [
+            "user" => $user->getData()
+        ]);
+    });
+
+    $app->post('/users/editar/:id', function($id) {
+        User::verifyLogin();
+        $user = new User();
+        $_POST['ativo'] = isset($_POST['ativo']) ? 1 : 0;
+        $user->get((int) $id);
+        $user->setData($_POST);
+        $saved = $user->update();
+        if ($saved) {
+            header('Location: /users');
+            exit;
+        }
+        header("Location: /users/editar/$id");
+        exit;
     });
 
     // Rota para listar componentes
