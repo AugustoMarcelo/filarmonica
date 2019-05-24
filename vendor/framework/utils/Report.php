@@ -29,6 +29,7 @@
             $html .= "      .bg-grey { background-color: #CECECE; }";
             $html .= "      .text-white { color: #FFF; }";
             $html .= "      td.text-white { color: #FFF; border-color: #000; font-weight: bold;}";
+            $html .= "      thead { display: table-row-group; }";
             $html .= "    </style>";
             $html .= "  </head>";
             $html .= "  <body>";
