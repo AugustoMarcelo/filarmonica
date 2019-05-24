@@ -46,7 +46,7 @@
                         <th>Usuário</th>
                         <th>E-mail</th>
                         <th>Status</th>
-                        <th></th>
+                        <!-- <th></th> -->
                     </tr>
                 </thead>
                 <tfoot>
@@ -55,7 +55,7 @@
                         <th>Usuário</th>
                         <th>E-mail</th>
                         <th>Status</th>
-                        <th></th>
+                        <!-- <th></th> -->
                     </tr>
                 </tfoot>
                 <tbody>
@@ -64,12 +64,12 @@
                         <td>{$value.id}</td>
                         <td>{$value.user}</td>
                         <td>{$value.email}</td>
-                        <td>{if="$value.ativo == 1"}Ativo{else}Inativo{/if}</td>
-                        <td>
+                        <td>{if="$value.ativo == 1"}<i class='fas fa-power-off text-success' title='Usuário ativo'></i> Ativo{else}<i class='fas fa-power-off text-danger' title='Usuário inativo'></i> Inativo{/if}</td>
+                        <!-- <td>
                             <a class="btn btn-sm btn-danger" href="/users/{$value.id}/delete"><i
                                     class="fas fa-trash-alt"></i>
                                 Remover</a>
-                        </td>
+                        </td> -->
                     </tr>
                     {/loop}
                 </tbody>
