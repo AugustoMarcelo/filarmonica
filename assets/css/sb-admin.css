@@ -10787,3 +10787,8 @@ body.sidebar-toggled footer.sticky-footer {
 .clickable {
   cursor: pointer;
 }
+
+td.td-actions {
+  display: flex;
+  justify-content: space-between;
+}
