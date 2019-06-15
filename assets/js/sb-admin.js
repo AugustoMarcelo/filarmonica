@@ -60,8 +60,10 @@
   }, false);
 
   $(document).on('click', 'tr.clickable', function (e) {
-    if (e.target.getAttribute('data-link') == undefined) {
-      window.location = $(this).data('href');
+    if (e.target.getAttribute('data-link') == null && e.target.tagName != "I") {
+      if (e.target.href == null) {
+        window.location = $(this).data('href');
+      }
     } else {
       document.getElementById('confirmButtonDelete').href = e.target.getAttribute('data-link');
     }
@@ -69,6 +71,7 @@
 
   $('.justify-fault').on('click', (e) => {
     let justificativas = document.querySelector('#justificativas');
+    e.target.previousElementSibling.previousElementSibling.checked = false;
     let componente_id = e.target.previousElementSibling.htmlFor.substr(11, 2);
     if (String(justificativas.value).includes(componente_id)) {
       justificativas.value = String(justificativas.value).replace(`${componente_id},`, ''); 
