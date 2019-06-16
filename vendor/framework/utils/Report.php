@@ -106,21 +106,25 @@
             $html .= "      </thead>";
             $html .= "      <tbody>";
             $totalFaltas = 0;
+            $totalAtrasos = 0;
             foreach ($data as $c) {
-                if ($c['faltas'] > 0) {
+                if ($c['faltas'] > 0 || $c['atrasos'] > 0) {
+                    $totalApagar = $c['faltas']*Config::FAULT_VALUE + $c['atrasos']*(Config::FAULT_VALUE/2);
                     $html .= "        <tr>";
                     $html .= "          <td>".$c['nome']."</td>";
                     $html .= "          <td>".$c['faltas']."</td>";
-                    $html .= "          <td>R$ ".number_format($c['faltas']*Config::FAULT_VALUE, 2, ',', '.')."</td>";
+                    $html .= "          <td>R$ ".number_format($totalApagar, 2, ',', '.')."</td>";
                     $html .= "          <td></td>";
                     $html .= "        </tr>";
                     $totalFaltas += $c['faltas'];
+                    $totalAtrasos += $c['atrasos'];
                 }
             }
+            $totalAreceber = $totalFaltas*Config::FAULT_VALUE + $totalAtrasos*(Config::FAULT_VALUE/2);
             $html .= "        <tr>";
             $html .= "        <td></td>";
             $html .= "        <td class='bg-grey'>Total</td>";
-            $html .= "        <td class='bg-grey'>R$ ".number_format($totalFaltas*Config::FAULT_VALUE, 2, ',', '.')."</td>";
+            $html .= "        <td class='bg-grey'>R$ ".number_format($totalAreceber, 2, ',', '.')."</td>";
             $html .= "        <td></td>";
             $html .= "        </tr>";
             $html .= "      </tbody>";
@@ -161,7 +165,7 @@
                 $html .= "        <tr>";
                 $html .= "          <td>".$c['matricula']."</td>";
                 $html .= "          <td>".$c['nome']."</td>";
-                $html .= "          <td>".($c['presenca'] == 1 ? 'PRESENTE' : 'AUSENTE')."</td>";
+                $html .= "          <td>".($c['presenca'] == 1 ? 'PRESENTE' : ($c['presenca'] == 3 ? 'ATRASADO' : 'AUSENTE'))."</td>";
                 $html .= "          <td></td>";
                 $html .= "          <td></td>";
                 $html .= "        </tr>";
