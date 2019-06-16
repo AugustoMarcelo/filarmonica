@@ -65,20 +65,69 @@
         window.location = $(this).data('href');
       }
     } else {
-      document.getElementById('confirmButtonDelete').href = e.target.getAttribute('data-link');
+      document.getElementById('confirmButtonDelete').href = e.target.getAttribute('data-link') == null ? e.target.parentElement.getAttribute('data-link') : e.target.getAttribute('data-link');
     }
   });
 
+  $('.presence').on('click', e => {
+    let atrasos = document.getElementById('atrasos');
+    let justificativas = document.getElementById('justificativas');
+
+    let componente_id = e.target.nextElementSibling.htmlFor.substr(11, 2);
+
+    // Desmarca a opção de atraso e justificativa, caso estejam marcados
+    e.target.nextElementSibling.nextElementSibling.classList.remove('text-success');
+    e.target.nextElementSibling.nextElementSibling.nextElementSibling.classList.remove('text-danger');
+
+    // Remove da lista de atrasados e justificados, caso estejam
+    atrasos.value = String(atrasos.value).replace(`${componente_id},`, '');
+    justificativas.value = String(justificativas.value).replace(`${componente_id},`, '');
+  });
+
   $('.justify-fault').on('click', (e) => {
+    let atrasos = document.getElementById('atrasos');
     let justificativas = document.querySelector('#justificativas');
-    e.target.previousElementSibling.previousElementSibling.checked = false;
+
     let componente_id = e.target.previousElementSibling.htmlFor.substr(11, 2);
+
+    // Verifica se existe e remove
     if (String(justificativas.value).includes(componente_id)) {
       justificativas.value = String(justificativas.value).replace(`${componente_id},`, ''); 
     } else {
+      // Marca como justificado
       justificativas.value += `${componente_id},`;
+      // Remove da lista de atrasados, caso esteja
+      atrasos.value = String(atrasos.value).replace(`${componente_id},`, '');
+      // Remove a marcação de atraso, caso esteja marcado
+      e.target.nextElementSibling.classList.remove('text-danger');
+      // Desmarca o checkbox de presença, caso esteja marcado
+      e.target.previousElementSibling.previousElementSibling.checked = false;
     }
+
     e.target.classList.toggle('text-success');
+  });
+
+  $('.later').on('click', e => {
+    let atrasos = document.getElementById('atrasos');
+    let justificativas = document.getElementById('justificativas');
+
+    let componente_id = e.target.previousElementSibling.previousElementSibling.htmlFor.substr(11, 2);
+
+    // Verifica se existe e remove
+    if (String(atrasos.value).includes(componente_id)) {
+      atrasos.value = String(atrasos.value).replace(`${componente_id},`, '');
+    } else {
+      // Marca como atrasado
+      atrasos.value += `${componente_id},`;
+      // Remove da lista de justificativas, caso tenha sido clicado
+      justificativas.value = String(justificativas.value).replace(`${componente_id},`, '');
+      // Remove a marcação da justificativa
+      e.target.previousElementSibling.classList.remove('text-success'); 
+      // Desmarca o checkbox de presença, caso esteja marcado
+      e.target.previousElementSibling.previousElementSibling.previousElementSibling.checked = false;
+    }
+
+    e.target.classList.toggle('text-danger');
   });
 
   $(() => {
