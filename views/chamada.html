@@ -31,17 +31,17 @@
             <div class="row">
                 {loop="$componentes"}
                 <div class="form-group col-12 col-lg-6">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="componente_{$value.id}"
-                            id="componente_{$value.id}">
-                        <label for="componente_{$value.id}" class="custom-control-label"
-                            title="Marcar componente como presente">{$value.nome}</label>
-                            <i class="fas fa-file-signature clickable justify-fault" title="Justificar uma falta"></i>
+                    <div class="custom-control custom-checkbox presence">
+                        <input type="checkbox" class="custom-control-input" name="componente_{$value.id}" id="componente_{$value.id}">
+                        <label for="componente_{$value.id}" class="custom-control-label" title="Marcar componente como presente">{$value.nome}</label>
+                        <i class="fas fa-file-signature clickable justify-fault" title="Justificar uma falta"></i>
+                        <i class="far fa-clock clickable later" title="Marcar meio-pingo"></i>
                     </div>
                 </div>
                 {/loop}
             </div>
             <input type="hidden" name="justificativas" id="justificativas">
+            <input type="hidden" name="atrasos" id="atrasos">
             <hr>
             <button type="submit" class="btn btn-success float-right" title="Salvar lista de chamada">
                 <i class="fas fa-fw fa-check"></i> Salvar</button>

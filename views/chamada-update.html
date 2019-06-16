@@ -31,17 +31,17 @@
                 <div class="row">
                     {loop="$presencas"}
                     <div class="form-group col-12 col-lg-6">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" name="componente_{$value.id}"
-                                id="componente_{$value.id}" {if="$value.presenca == 1"}checked{/if}>
-                            <label for="componente_{$value.id}" class="custom-control-label"
-                                title="Marcar componente como presente">{$value.nome}</label>
+                        <div class="custom-control custom-checkbox presence">
+                            <input type="checkbox" class="custom-control-input" name="componente_{$value.id}" id="componente_{$value.id}" {if="$value.presenca == 1"}checked{/if}>
+                            <label for="componente_{$value.id}" class="custom-control-label" title="Marcar componente como presente">{$value.nome}</label>
                             <i class='fas fa-file-signature clickable justify-fault {if="$value.presenca == 2"}text-success{/if}' title="Justificar uma falta"></i>
+                            <i class='far fa-clock clickable later {if="$value.presenca == 3"}text-danger{/if}' title="Marcar meio-pingo"></i>
                         </div>
                     </div>
                     {/loop}
                 </div>
                 <input type="hidden" name="justificativas" id="justificativas" value="{$justificativas}">
+                <input type="hidden" name="atrasos" id="atrasos" value="{$atrasos}">
                 <hr>
                 <a href="/tocatas/{$tocata.id}/chamada/folha" target="_blank" class="btn btn-outline-secondary" title="Gerar PDF da lista de chamada">
                         <i class="fas fa-print"></i> Imprimir</a>
