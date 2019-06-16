@@ -400,15 +400,22 @@
             )
         ));
         $justificativas = "";
+        $atrasos = "";
         foreach ($frequencia->getPresencas() as $componente) {
-            if ($componente['presenca'] == 2) {
-                $justificativas .= $componente['id'].",";
+            switch ($componente['presenca']) {
+                case 2:
+                    $justificativas .= $componente['id'].",";
+                    break;
+                case 3:
+                    $atrasos .= $componente['id'].",";
+                    break;
             }
         }
         $page->setTemplate('chamada-update', array(
             "tocata" => $tocata->getData(),
             "presencas" => $frequencia->getPresencas(),
-            "justificativas" => $justificativas
+            "justificativas" => $justificativas,
+            "atrasos" => $atrasos
         ));
     });
 
@@ -418,6 +425,7 @@
         $frequencia->setTocata_ID($idtocata);
         // REMOVE TODA A LISTA DE CHAMADA DA TOCATA ANTES
         $frequencia->delete();
+        // SALVA A FREQUÊNCIA DOS PRESENTES
         $frequencia->setPresenca(1);
         $frequencia->setCadastrado_Por(isset($_SESSION[User::SESSION]) ? $_SESSION[User::SESSION]['id'] : 1);
         $frequencia->setData_Cadastro(DateUtils::now('Y-m-d H:i:s'));
@@ -428,12 +436,21 @@
                 $frequencia->save();
             }
         }
+        // SALVA A FREQUÊNCIA PARA OS QUE JUSTIFICARAM
         $justificativas = explode(",", rtrim($_POST['justificativas'], ","));
         $frequencia->setPresenca(2);
         for ($j = 0; $j < count($justificativas); $j++) {
             $frequencia->setComponente_ID($justificativas[$j]);
             $frequencia->save();
         }
+        // SALVA A FREQUÊNCIA PARA OS QUE ATRASARAM
+        $atrasos = explode(",", rtrim($_POST['atrasos'], ','));
+        $frequencia->setPresenca(3);
+        for ($j = 0; $j < count($atrasos); $j++) {
+            $frequencia->setComponente_ID($atrasos[$j]);
+            $frequencia->save();
+        }
+        // SALVA A FREQUÊNCIA PARA OS QUE FALTARAM
         $frequencia->setFaults();
         header("Location: /tocatas");
         exit;
